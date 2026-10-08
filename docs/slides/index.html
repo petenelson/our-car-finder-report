@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Building Car Finder with Claude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f3f4f1; --paper: #ffffff; --ink: #15201b; --muted: #5d6a63; --line: #d9ddd7;
+  --green: #1d6b4a; --green-soft: #e3efe8; --orange: #c8471c; --orange-soft: #fbe9e1;
+  --claude: #b4542f; --code: #10241b;
+  --head: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #0d1512; overflow: hidden; }
+body { font-family: var(--body); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+/* Every slide is a fixed 1280x720 canvas, scaled to fit the window. */
+#stage { position: fixed; inset: 0; display: grid; place-items: center; }
+#deck { width: 1280px; height: 720px; position: relative; transform-origin: center center; }
+.slide { position: absolute; inset: 0; background: var(--bg); padding: 56px 72px 60px; display: none; flex-direction: column; overflow: hidden; }
+.slide.on { display: flex; }
+.slide.dark { background: var(--code); color: #eef3ef; }
+
+.kicker { font: 600 15px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--green); margin: 0 0 12px; }
+.dark .kicker { color: #8fd1ae; }
+h1, h2 { font-family: var(--head); font-weight: 700; margin: 0; letter-spacing: -.01em; line-height: 1.02; }
+h1 { font-size: 92px; }
+h2 { font-size: 52px; margin-bottom: 26px; }
+p { margin: 0; }
+.lead { font-size: 24px; line-height: 1.4; color: var(--muted); max-width: 900px; }
+.dark .lead { color: #b9c9bf; }
+.foot { position: absolute; left: 72px; right: 72px; bottom: 22px; display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); letter-spacing: .04em; }
+.dark .foot { color: #7f978a; }
+b, strong { font-weight: 600; }
+.grow { flex: 1; min-height: 0; }
+.row { display: flex; gap: 28px; }
+.col { flex: 1; min-width: 0; }
+.claude { color: var(--claude); }
+.tag { display: inline-block; font: 600 12px/1 var(--body); letter-spacing: .08em; text-transform: uppercase; padding: 5px 8px; border-radius: 4px; background: var(--green-soft); color: var(--green); }
+.tag.o { background: var(--orange-soft); color: var(--orange); }
+code, .mono { font-family: var(--mono); font-size: .9em; }
+
+/* Title */
+.title-slide { background: var(--code); color: #f1f5f2; justify-content: center; }
+.title-slide h1 { font-size: 104px; }
+.title-slide h1 span { color: #f08a5d; }
+.title-slide .lead { color: #b9c9bf; margin-top: 22px; font-size: 27px; }
+.stats { display: flex; gap: 46px; margin-top: 54px; }
+.stat b { display: block; font: 700 54px/1 var(--head); color: #fff; }
+.stat span { font-size: 15px; color: #9fb4a8; letter-spacing: .03em; }
+
+/* Prompt quote */
+.prompt { background: var(--paper); border: 1px solid var(--line); border-left: 6px solid var(--green); border-radius: 10px; padding: 26px 32px; font-size: 25px; line-height: 1.5; }
+.prompt .who { font: 600 13px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.prompt mark { background: #fff1b8; padding: 0 3px; border-radius: 3px; }
+
+/* Tables */
+table { border-collapse: collapse; width: 100%; font-size: 18px; }
+th { text-align: left; font: 600 13px/1.2 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 0 12px 10px; border-bottom: 2px solid var(--ink); }
+td { padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.35; }
+td.ok { color: var(--green); font-weight: 600; }
+td.no { color: var(--orange); font-weight: 600; }
+td.dim { color: #9aa59f; }
+
+/* Timeline */
+.tl { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 48px; font-size: 17px; }
+.tl li { break-inside: avoid; display: grid; grid-template-columns: 100px 1fr; gap: 10px; padding: 6px 0; border-bottom: 1px dashed var(--line); line-height: 1.3; }
+.tl time { font-family: var(--mono); font-size: 13px; color: var(--muted); padding-top: 3px; }
+.tl .ms { font-weight: 600; color: var(--green); }
+
+/* Architecture */
+.flow { display: flex; align-items: stretch; gap: 0; }
+.box { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; font-size: 15px; line-height: 1.35; }
+.box h4 { margin: 0 0 6px; font: 700 21px/1.1 var(--head); }
+.box small { color: var(--muted); font-size: 13.5px; display: block; }
+.arrow { width: 34px; display: grid; place-items: center; color: var(--muted); font-size: 22px; flex: none; }
+.loc { font-size: 14px; }
+.loc td { padding: 6px 10px; }
+
+/* Cards grid */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+.card h4 { margin: 0 0 6px; font: 700 22px/1.1 var(--head); }
+.card p { font-size: 15.5px; line-height: 1.4; color: #34413a; }
+
+/* Code */
+pre { margin: 0; background: var(--code); color: #dfe9e3; border-radius: 10px; padding: 18px 22px; font: 400 14.5px/1.55 var(--mono); overflow: hidden; }
+pre .c { color: #7f978a; } pre .k { color: #f0a27f; } pre .s { color: #9fd8b5; }
+
+/* Screens */
+.shot { border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.18); border: 1px solid var(--line); display: block; }
+.phone { border: 8px solid #1b1f1d; border-radius: 26px; overflow: hidden; box-shadow: 0 12px 30px rgba(0,0,0,.25); background: #000; }
+.phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+/* Notifications */
+.notif { background: #fff; border-radius: 16px; padding: 12px 16px; box-shadow: 0 2px 10px rgba(0,0,0,.12); display: grid; grid-template-columns: 1fr 64px; gap: 12px; margin-bottom: 12px; font-size: 14.5px; line-height: 1.35; }
+.notif .app { font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+.notif b { display: block; font-size: 15.5px; margin-bottom: 2px; }
+.notif .thumb { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; }
+.notif .act { font-size: 13px; font-weight: 600; color: var(--green); margin-top: 6px; }
+.shade { background: linear-gradient(160deg, #2c3b34, #172019); border-radius: 22px; padding: 18px 16px 8px; }
+
+/* Pushback */
+.pb { display: grid; grid-template-columns: 1fr 1.35fr; gap: 0; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-bottom: 11px; }
+.pb .ask { padding: 11px 16px; background: #eef1ec; font-size: 15.5px; line-height: 1.35; border-right: 1px solid var(--line); }
+.pb .ask::before { content: "Pete"; display: block; font: 600 11px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.pb .ans { padding: 11px 16px; font-size: 15.5px; line-height: 1.35; }
+.pb .ans::before { content: "Claude"; display: block; font: 600 11px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--claude); margin-bottom: 5px; }
+
+/* Lists */
+ul.clean { margin: 0; padding: 0; list-style: none; }
+ul.clean li { padding: 9px 0 9px 26px; position: relative; font-size: 19px; line-height: 1.38; border-bottom: 1px solid var(--line); }
+ul.clean li::before { content: ""; position: absolute; left: 4px; top: 18px; width: 9px; height: 9px; border-radius: 2px; background: var(--green); }
+ul.clean.big li { font-size: 21.5px; padding-block: 12px; }
+ul.clean.o li::before { background: var(--orange); }
+.dark ul.clean li { border-color: #2b4136; }
+.dark ul.clean li::before { background: #8fd1ae; }
+
+/* Speaker notes + chrome */
+#notes { position: fixed; left: 0; right: 0; bottom: 0; max-height: 34vh; overflow: auto; background: rgba(10,16,13,.96); color: #dfe9e3; font: 16px/1.5 var(--body); padding: 14px 22px 18px; display: none; z-index: 10; border-top: 2px solid var(--green); }
+#notes.on { display: block; }
+#notes h5 { margin: 0 0 4px; font: 600 12px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: #8fd1ae; }
+#hud { opacity: .35; transition: opacity .2s; position: fixed; right: 14px; bottom: 10px; z-index: 11; font: 12px/1 var(--body); color: #8a9a91; display: flex; gap: 10px; align-items: center; }
+#hud:hover { opacity: 1; }
+#hud button { background: rgba(255,255,255,.08); color: #cfdcd4; border: 1px solid rgba(255,255,255,.15); border-radius: 6px; padding: 6px 10px; font: inherit; cursor: pointer; }
+#hud button:hover { background: rgba(255,255,255,.16); }
+#progress { position: fixed; left: 0; top: 0; height: 3px; background: #f08a5d; z-index: 11; transition: width .2s; }
+aside.notes { display: none; }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="stage"><div id="deck">
+
+<!-- 1 -->
+<section class="slide title-slide">
+  <p class="kicker">Show &amp; tell · Claude Code</p>
+  <h1>Building a used-car finder<br><span>by talking to Claude</span></h1>
+  <p class="lead">One evening of prompts turned into a scraper for 5 car sites, a deal-scoring model, phone alerts and a mobile report that rebuilds twice a day.</p>
+  <div class="stats">
+    <div class="stat"><b>77 min</b><span>first prompt to first live report</span></div>
+    <div class="stat"><b>23</b><span>prompts, total</span></div>
+    <div class="stat"><b>~1,900</b><span>lines of Python + HTML</span></div>
+    <div class="stat"><b>0</b><span>lines typed by me</span></div>
+    <div class="stat"><b>~2,300</b><span>listings scanned per run</span></div>
+  </div>
+  <div class="foot"><span>Pete Nelson</span></div>
+  <aside class="notes">We needed a used minivan. Instead of refreshing five car sites twice a day, I asked Claude Code to build something that does it for me. This talk is less about the tool and more about how the collaboration went: what Claude decided on its own, what it needed from me, and where it pushed back.</aside>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <p class="kicker">The starting point</p>
+  <h2>The whole first prompt</h2>
+  <div class="prompt">
+    <div class="who">Pete → Claude Code, Oct 1, 5:59 PM</div>
+    We're trying to find a used Toyota Sienna minivan for $8-10k, preferably in Austin, but could also travel to other markets within a reasonable drive, such as Dallas Fort Worth, Houston, etc. I'd like you to scrape web sites from local dealers, Carmax, etc, once a day for matching minivans, and have some way to send me a notification when there are new matches. The results can be stored in an artifact with the model year, picture, mileage, location, distance from Austin (McNeil and 183 area). Feel free to write a script to do this in Python, Node, or whatever since this can run as a cron job on an Ubuntu box. <mark>Ask me any additional detailed questions to flesh this out.</mark>
+  </div>
+  <p class="lead" style="margin-top:22px;font-size:21px">There's no spec, schema, site list or design here. The goal, the constraints and an invitation to ask questions were enough.</p>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">That's verbatim. The last sentence did a lot of work: it told Claude to interview me before writing code. I didn't name any sites besides CarMax, didn't pick a language and didn't say how notifications should work.</aside>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <p class="kicker">What Claude needed from me, part 1</p>
+  <h2>It asked four questions, each with a recommendation</h2>
+  <table>
+    <tr><th style="width:24%">Question</th><th style="width:38%">Options Claude offered</th><th>What I picked</th></tr>
+    <tr><td><b>Year / mileage</b><br><small style="color:var(--muted)">"$8–10k usually means 2011–2015, 120–180k mi"</small></td><td><b>2011+ under 160k (Rec.)</b> · any year under 180k · 2015+ any mileage</td><td class="ok">Took the recommendation</td></tr>
+    <tr><td><b>Sources</b></td><td>CarMax · aggregators (Cars.com, CarGurus, Autotrader) "so I don't need to scrape individual dealer sites" · Craigslist · FB Marketplace "best effort, may break"</td><td class="ok">All four</td></tr>
+    <tr><td><b>Notifications</b></td><td><b>Email (Rec.)</b> · ntfy.sh push · Pushover ($5) · Discord/Slack webhook</td><td class="no">Overrode it: ntfy.sh</td></tr>
+    <tr><td><b>Publishing</b><br><small style="color:var(--muted)">"A plain cron script can't publish to claude.ai on its own"</small></td><td><b>Cron calls <code>claude -p</code> (Rec.)</b> · local HTML only · both</td><td>Took it, then replaced it with GitHub Pages an hour later</td></tr>
+  </table>
+  <p class="lead" style="margin-top:20px;font-size:20px">Each option came with its tradeoff spelled out, like FB "actively blocks scraping" and Pushover "one-time $5". Picking took about a minute.</p>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">The questions were informed. Before asking, Claude had already checked the box (Python 3.12, Node 22, claude CLI present). It proposed the price-to-year mapping itself. It also flagged its own design's limitation: a cron job can't publish to claude.ai, so it offered a workaround.</aside>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <p class="kicker">How the session actually went</p>
+  <h2>Scope grew mid-flight, and that was fine</h2>
+  <ul class="tl">
+    <li><time>Oct 1 5:59p</time><span>Initial prompt, then 4 questions</span></li>
+    <li><time>6:08p</time><span>"Also look for Honda CRV, Toyota Highlander, Toyota RAV4"</span></li>
+    <li><time>6:09p</time><span>"…or any other Toyota or Honda vehicles with decent cargo space"</span></li>
+    <li><time>6:48p</time><span>"Let's also run it at 4pm. Have the report highlight cars that are great deals"</span></li>
+    <li><time>7:05p</time><span>"Add some basic sorting and filtering… publish to GitHub"</span></li>
+    <li><time>7:16p</time><span class="ms">First live report + first ntfy push</span></li>
+    <li><time>7:58p</time><span>"Make sure the report is mobile friendly"</span></li>
+    <li><time>8:02p</time><span>"Can you set up the Github page?" / "push the code too"</span></li>
+    <li><time>8:19p</time><span>Two repos: private code, public report</span></li>
+    <li><time>8:25p</time><span>Phone screenshot: "too small to read"</span></li>
+    <li><time>8:28p</time><span>"Make Deals the default"</span></li>
+    <li><time>8:36p</time><span>Price $7k+, max 150k miles</span></li>
+    <li><time>8:39p</time><span>"Can you add reliability rankings?"</span></li>
+    <li><time>9:02p</time><span>"Any reason not to set a lower bottom price?"</span></li>
+    <li><time>10:11p</time><span>"One of the Facebook matches says 'only for export'"</span></li>
+    <li><time>Oct 2 12:22p</time><span>"Add Lexus and Acura"</span></li>
+    <li><time>Oct 3 11:22a</time><span>"Does this scrape Edmunds?"</span></li>
+  </ul>
+  <p class="lead" style="margin-top:16px;font-size:19px">Several of these were typed <i>while Claude was still working</i>. Claude Code queues them and folds them into the running task.</p>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">Most of the real product came from short follow-ups, not the first prompt. I never stopped to write requirements. I reacted to what I saw, the same way you'd work with a teammate sitting next to you. Everything after ~10 PM on day one was polish.</aside>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <p class="kicker">How it works</p>
+  <h2>One Python pipeline, run by cron</h2>
+  <div class="flow">
+    <div class="box" style="flex:1"><h4>cron</h4>Fires hourly. <code>run_daily.sh</code> only proceeds at <b>7 AM / 4 PM Chicago</b>, which keeps the times right through daylight saving. Uses <code>flock</code>.</div>
+    <div class="arrow">→</div>
+    <div class="box" style="flex:1.3"><h4>5 scrapers</h4>Cars.com &amp; Craigslist over <code>curl_cffi</code> (Chrome TLS fingerprint).<br>CarMax, Autotrader, FB in <b>Camoufox</b> (stealth Firefox).</div>
+    <div class="arrow">→</div>
+    <div class="box" style="flex:1.2"><h4>normalize</h4>Drop export-only / no-title. Flag "salvage", "needs transmission". Merge cross-site duplicates by VIN.</div>
+    <div class="arrow">→</div>
+    <div class="box" style="flex:1.2"><h4>enrich</h4>Drive miles via OSRM · deal score (OLS on log price) · NHTSA reliability · cargo by generation.</div>
+    <div class="arrow">→</div>
+    <div class="box" style="flex:1.1"><h4>publish</h4>SQLite → one static HTML page → <code>git push</code> to Pages. New listings → ntfy.</div>
+  </div>
+  <div class="row grow" style="margin-top:26px">
+    <div class="col">
+      <table class="loc">
+        <tr><th>File</th><th>Lines</th><th>Job</th></tr>
+        <tr><td><code>run.py</code></td><td>399</td><td>pipeline, filters, merge, price drops</td></tr>
+        <tr><td><code>finder/sources.py</code></td><td>372</td><td>the 5 scrapers</td></tr>
+        <tr><td><code>finder/report_template.html</code></td><td>464</td><td>report UI (vanilla JS, no framework)</td></tr>
+        <tr><td><code>finder/deals.py</code></td><td>130</td><td>per-model price regression</td></tr>
+        <tr><td><code>finder/reliability.py</code></td><td>120</td><td>NHTSA complaints → stars</td></tr>
+        <tr><td><code>notify / geo / models / report / publish</code></td><td>426</td><td>the rest</td></tr>
+      </table>
+    </div>
+    <div class="col" style="flex:.8">
+      <ul class="clean">
+        <li>Config lives in <code>config.toml</code>; the secret ntfy topic is in a git-ignored <code>config.local.toml</code></li>
+        <li>Private code repo + separate public report repo</li>
+        <li>A run takes ~12 min: ~2,300 raw listings → ~240 in range</li>
+        <li>Alert if any site fails 3 runs in a row</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">Deliberately boring tech: no web framework, no build step, no server. SQLite caches geocodes, routes, Facebook detail pages and the price history the deal model learns from. The report is one HTML file with the data injected as JSON.</aside>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <p class="kicker">How Claude chose which sites to scrape</p>
+  <h2>It probed every site, escalating until it got through</h2>
+  <table style="font-size:16.5px">
+    <tr><th style="width:30%">Attempt (all within ~5 minutes)</th><th>Cars.com</th><th>CarMax</th><th>Autotrader</th><th>CarGurus</th></tr>
+    <tr><td>Plain <code>curl</code></td><td class="no">403</td><td class="no">403</td><td class="no">"page unavailable"</td><td class="no">403</td></tr>
+    <tr><td><code>curl_cffi</code>, Chrome TLS impersonation</td><td class="ok">200 ✓ JSON in page</td><td class="no">403</td><td class="no">unavailable</td><td class="no">403</td></tr>
+    <tr><td>Headless Chromium (Playwright)</td><td class="dim">–</td><td class="no">Access Denied</td><td class="no">unavailable</td><td class="no">403</td></tr>
+    <tr><td>Patched stealth Chromium (patchright)</td><td class="dim">–</td><td class="no">Access Denied</td><td class="no">unavailable</td><td class="no">403</td></tr>
+    <tr><td><i>"Is it our IP?"</i> → residential Google Fiber, so no</td><td class="dim" colspan="4">So the block is the browser fingerprint, not the IP address</td></tr>
+    <tr><td><b>Camoufox</b> (stealth Firefox)</td><td class="dim">–</td><td class="ok">200 ✓ internal search API</td><td class="ok">200 ✓ <code>__NEXT_DATA__</code></td><td class="no">403 → dropped</td></tr>
+  </table>
+  <div class="row" style="margin-top:20px">
+    <div class="card col"><h4>Craigslist</h4><p>Skipped the HTML and found the JSON API the site's own front end calls (<code>sapi…/postings/search/full</code>). One request covers every Texas area.</p></div>
+    <div class="card col"><h4>Facebook Marketplace</h4><p>Works logged out. Search cards lack mileage, so it opens each new listing <b>once</b> for mileage, VIN and title status, then caches the result.</p></div>
+    <div class="card col"><h4>Left out</h4><p><b>Individual dealer sites</b> were already covered by the aggregators. <b>CarGurus</b> blocked everything. <b>Edmunds</b> (asked later) mostly duplicates Cars.com and Autotrader.</p></div>
+  </div>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">This was the most "engineer-like" part. Claude didn't guess. It ran a test, read the status code and tried the next technique. Checking the public IP was a nice diagnostic step: it ruled out IP reputation before reaching for heavier tools. It also kept looking for structured data (embedded JSON, internal APIs) instead of parsing HTML.</aside>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <p class="kicker">Decisions Claude made on its own</p>
+  <h2>Things I never asked for</h2>
+  <div class="cards">
+    <div class="card"><h4>The model list</h4><p>"Decent cargo space" became 10 models: Sienna, Odyssey, Highlander, Pilot, 4Runner, RAV4, CR-V, Venza, Prius v and Element, each with <b>cargo specs per generation</b>. For Lexus/Acura it skipped the ES/IS/NX/TL for lack of cargo room.</p></div>
+    <div class="card"><h4>Near misses</h4><p>Cars up to $500 over budget are kept in their own tab. Sellers negotiate.</p></div>
+    <div class="card"><h4>Real drive distance</h4><p>Uses OSRM driving miles and time from McNeil &amp; 183, not straight-line distance. Geocodes and routes are cached in SQLite.</p></div>
+    <div class="card"><h4>Cross-site de-dupe</h4><p>The same car on CarMax and Autotrader becomes one card with both links, matched by VIN.</p></div>
+    <div class="card"><h4>Alert hygiene</h4><p>At most 8 pushes per run, then a summary. When I changed the price range, it re-ran quietly so I wasn't flooded. "Too good to be true" listings never push.</p></div>
+    <div class="card"><h4>Trouble flags</h4><p>"Salvage", "needs transmission" → a <i>Check</i> badge, capped at "good deal". It <b>removed</b> "sold as-is" from the list because "every private sale says it".</p></div>
+    <div class="card"><h4>Secrets before pushing</h4><p>Before pushing to a public repo, it moved the ntfy topic into a git-ignored file: "Anyone who knew it could read your alerts."</p></div>
+    <div class="card"><h4>Reliability source</h4><p>Chose NHTSA complaints per 10k sold, because Consumer Reports and J.D. Power are paywalled and can't be republished. Airbag (Takata) complaints are excluded.</p></div>
+    <div class="card"><h4>Report UX</h4><p>Window-sticker cards, a "Gone" tab for sold cars, Save/Hide stored per browser, and a cargo bar per car.</p></div>
+  </div>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">Every one of these is a judgment call a good engineer would make without asking, and Claude made them without asking. The "sold as-is" one is my favorite: it noticed its own filter would have flagged nearly every private listing.</aside>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <p class="kicker">Self-correction</p>
+  <h2>"117 of 249 cars are great deals." That can't be right.</h2>
+  <div class="row grow">
+    <div class="col">
+      <ul class="clean o" style="margin-bottom:18px">
+        <li><b>v1</b> compared every car to a market price learned from dealer listings → private sales all looked cheap.</li>
+        <li><b>Fix 1:</b> added a dealer-vs-private term, so private cars are compared with private prices.</li>
+        <li><b>Fix 2:</b> in a fixed budget <i>everything</i> looks cheap, so the labels became relative: great = top 10% of current candidates, good = next 15% (with 15% and 7% floors).</li>
+        <li><b>Fix 3:</b> a near-new 4Runner for $7,500 is bait, so anything ≥40% under expected price is labeled <i>"Too good to be true?"</i></li>
+      </ul>
+      <p class="lead" style="font-size:19px">Result on that run: <b>17 great, 31 good, 10 suspect, 19 flagged</b>. Nobody asked it to sanity-check the output.</p>
+    </div>
+    <div class="col" style="flex:.95">
+<pre><span class="c"># finder/deals.py (simplified)</span>
+<span class="c"># per model, last 45 days of listings</span>
+log(price) ~ b0
+           + b1 * (year - 2014)
+           + b2 * miles / 100_000
+           + b3 * is_private_seller
+
+expected = exp(fit(listing))
+<span class="k">if</span> kbb_price: expected = kbb_price  <span class="c"># Autotrader</span>
+pct_under = 1 - price / expected
+
+<span class="k">if</span>   pct_under &gt;= <span class="s">0.40</span>: label = <span class="s">"suspect"</span>
+<span class="k">elif</span> pct_under &gt;= p90(candidates): <span class="s">"great"</span>
+<span class="k">elif</span> pct_under &gt;= p75(candidates): <span class="s">"good"</span></pre>
+    </div>
+  </div>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">I asked to "highlight cars that are great deals". That's all. Claude picked the approach, saw that the output was nonsense, worked out why (two separate reasons), fixed both, and added a scam guard. The market sample is a wider $5–16k Cars.com search plus all of CarMax, so the regression has enough data.</aside>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <p class="kicker">The result</p>
+  <h2>The report</h2>
+  <div class="row grow" style="align-items:flex-start">
+    <div style="flex:1.85"><img class="shot" src="img/d-deals.jpg" alt="Desktop view of the report on the Deals tab" style="width:100%"></div>
+    <div class="phone" style="width:190px;flex:none;height:440px"><img src="img/m-deals.jpg" alt="Phone view of the report"></div>
+    <div class="phone" style="width:190px;flex:none;height:440px"><img src="img/m-card.jpg" alt="One listing card with cargo and reliability"></div>
+  </div>
+  <p class="lead" style="font-size:18px;margin-top:-14px">Views: Deals · Matches · Near misses · Saved · Gone. Filters: model, price, mileage, distance, seller type, rows, reliability, site, search. Live at <b>petenelson.github.io/our-car-finder-report</b></p>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">Pull up the live page here if there's time. Defaults are Deals tab + Best deal sort, which I asked for. The card layout, cargo bar, reliability details and known-issues notes were Claude's design. The notes are things like "A/C compressor failures are common on 2012–16 CR-Vs".</aside>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <p class="kicker">Notifications</p>
+  <h2>Push alerts through ntfy</h2>
+  <div class="row grow">
+    <div style="width:430px;flex:none">
+      <div class="shade">
+        <div class="notif"><div><div class="app">ntfy · 🔥 · priority max</div><b>Great deal: 2016 Honda Odyssey</b>$7,500 · 98k mi · 7 mi away · cargo 148 cu ft · reliability ★★☆☆☆<br>Great deal: $4,460 under similar private sales ($11,960)<div class="act">OPEN REPORT</div></div><img class="thumb" src="img/notif-odyssey.jpg" alt=""></div>
+        <div class="notif"><div><div class="app">ntfy · 📉</div><b>Price drop: 2016 Honda Odyssey EX-L</b>$9,499 → $8,999 · 111k mi · Houston, TX (165 mi away)<div class="act">OPEN REPORT</div></div><div></div></div>
+        <div class="notif"><div><div class="app">ntfy · 🚗</div><b>12 more new listings</b>2012 Toyota Sienna LE · $9,995 · Tomball, TX<br>2013 Toyota RAV4 · $10,200 · Flower Mound…</div><div></div></div>
+      </div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:8px">Recreated from <code>notify.py</code>'s output format with real listing data.</p>
+    </div>
+    <div class="col">
+      <ul class="clean">
+        <li><b>Why ntfy:</b> free, no account, one HTTP POST per alert. Claude had recommended email. I chose ntfy, and it adapted.</li>
+        <li>Priority maps to urgency: great deal = max, match = high, near miss = default.</li>
+        <li>Tapping opens the listing; the <b>Open report</b> action opens the page.</li>
+        <li>Photo attached, plus price, miles, distance, cargo, stars and why it's a deal.</li>
+        <li>Price drops of $300 or more, site-failure warnings, max 8 pushes per run.</li>
+        <li>Claude also walked me through subscribing in the app, including Android battery settings.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">The notifier is ~100 lines: ntfy's whole API is HTTP headers (Title, Priority, Tags, Attach, Click, Actions). When I reported "clicking shows a 404", Claude found that only the two alerts sent before the repo move had the old URL baked in.</aside>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <p class="kicker">Pushback</p>
+  <h2>When Claude said "you don't need that"</h2>
+  <div class="pb"><div class="ask">"This is what it looks like on phone, too small to read. Feel free to use Tailwind."</div><div class="ans">"The cause is a missing tag, not small fonts… Tailwind isn't needed." One <code>&lt;meta viewport&gt;</code> line fixed it.</div></div>
+  <div class="pb"><div class="ask">"Install playwright if you need to."</div><div class="ans">Didn't. The stealth-browser package it already had shipped a Chromium that could emulate a Pixel 7.</div></div>
+  <div class="pb"><div class="ask">"Any reason not to set a lower bottom price?"</div><div class="ans">It pulled the data first: "The $6–7k cars are newer and lower-mileage than the $7–8k ones, which is backwards… usually lowball bait." Recommended <b>$6k, not lower</b>.</div></div>
+  <div class="pb"><div class="ask">"Clicking on a notification shows a 404. Does it need the new URL?"</div><div class="ans">"No change was needed." Only the two alerts sent before the move had the old link, and sent notifications can't be edited.</div></div>
+  <div class="pb"><div class="ask">"Can I make the repo private and still publish the report page?"</div><div class="ans">Explained that Pages stays public even on Pro, and laid out 3 options (two repos / Pro / Cloudflare Access) with costs.</div></div>
+  <div class="pb" style="margin-bottom:0"><div class="ask">"Does this scrape Edmunds?"</div><div class="ans">"It would mostly add duplicates." It offered to probe Edmunds anyway as a backup source. I said no.</div></div>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">This is the part I didn't expect. When I suggested a solution (Tailwind, Playwright, a lower floor), Claude diagnosed the actual problem first and told me when my suggestion wasn't needed. It also answered with data, not opinion. The price-floor answer came with a table of listings by price band.</aside>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <p class="kicker">Lessons</p>
+  <h2>What went wrong, and how it got caught</h2>
+  <div class="row grow">
+    <div class="col">
+      <ul class="clean o big">
+        <li><b>Phone layout broke on GitHub.</b> claude.ai had added the viewport tag automatically, and Claude's "phone test" just resized a desktop window, which ignores that tag. <i>Caught by my screenshot.</i> It switched to real device emulation.</li>
+        <li><b>A drum kit nearly hid 13 cars.</b> FB detail pages include an unrelated feed. Matching "export" would have caught a "Pearl Export" drum kit. Text is now trimmed to the listing itself.</li>
+        <li><b>Lexus had zero complaints.</b> NHTSA spells it "RX350", not "RX 350". Claude spotted the zero, tried other spellings, and fixed it before I noticed.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="clean o big">
+        <li><b>The claude.ai artifact plan didn't fit:</b> a 255-file limit, external images blocked, and a daily <code>claude -p</code> run. It was swapped for <code>git push</code> to Pages.</li>
+        <li><b>A crash on the seed run:</b> a flag was read before it was defined. The FB cache meant the rerun took 12 min, not 35.</li>
+        <li><b>Still open:</b> the bot walls move. Autotrader has blocked most runs since Oct 4, Cars.com has sent occasional 403s, and FB detail pages once slowed to 45 s each. The failure alert caught all of them.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">Be honest about this part. Claude's own testing had a blind spot (resizing a desktop window isn't phone emulation), and only a real screenshot from me exposed it. The scrapers will always be an arms race. The design choice that matters is that failures are loud: three failed runs in a row send a push.</aside>
+</section>
+
+<!-- 13 -->
+<section class="slide dark">
+  <p class="kicker">Takeaways</p>
+  <h2>What Claude needed from me, and what it didn't</h2>
+  <div class="row grow">
+    <div class="col">
+      <p style="font:600 14px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:#f0a27f;margin-bottom:8px">Only I could do</p>
+      <ul class="clean big">
+        <li>Goals and taste: budget, area, which makes, "Deals first"</li>
+        <li>Judgment calls it framed for me: repo privacy, price floor</li>
+        <li>Interactive auth: <code>! gh auth login</code></li>
+        <li>Real-world checks: subscribing on my phone, a phone screenshot, spotting a bad listing</li>
+      </ul>
+    </div>
+    <div class="col">
+      <p style="font:600 14px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:#8fd1ae;margin-bottom:8px">What worked</p>
+      <ul class="clean big">
+        <li><b>Ask it to ask you questions.</b> Four multiple-choice questions replaced a spec.</li>
+        <li><b>Short follow-ups beat a long prompt.</b> React to what it builds.</li>
+        <li><b>Expect pushback.</b> Suggest solutions loosely. It'll tell you when the problem is elsewhere.</li>
+        <li><b>Give it a way to see results:</b> logs, screenshots, real data. Most of its self-corrections came from looking at its own output.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Questions?</span><span>petenelson.github.io/our-car-finder-report</span></div>
+  <aside class="notes">Wrap-up: I wrote zero lines of code but made every decision that mattered to us as buyers. Claude did the engineering, including the parts I'd normally skip: secrets hygiene, alert throttling and sanity-checking a model's output.</aside>
+</section>
+
+</div></div>
+
+<div id="notes"><h5>Speaker notes</h5><div id="notes-body"></div></div>
+<div id="hud"><span id="count"></span><button id="prev" aria-label="Previous slide">←</button><button id="next" aria-label="Next slide">→</button><button id="ntog">Notes</button><button id="fs">Fullscreen</button></div>
+
+<script>
+(function () {
+  const deck = document.getElementById("deck");
+  const slides = [...document.querySelectorAll(".slide")];
+  const notes = document.getElementById("notes");
+  let i = Math.min(slides.length - 1, Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));
+
+  function fit() {
+    const s = Math.min(innerWidth / 1280, innerHeight / 720);
+    deck.style.transform = `scale(${s})`;
+  }
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((el, k) => el.classList.toggle("on", k === i));
+    document.getElementById("count").textContent = `${i + 1} / ${slides.length}`;
+    document.getElementById("progress").style.width = `${((i + 1) / slides.length) * 100}%`;
+    const a = slides[i].querySelector("aside.notes");
+    document.getElementById("notes-body").textContent = a ? a.textContent : "";
+    history.replaceState(null, "", `#${i + 1}`);
+  }
+  const toggleNotes = () => notes.classList.toggle("on");
+  const fullscreen = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()).catch(() => {});
+
+  addEventListener("keydown", (e) => {
+    if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    else if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); show(i - 1); }
+    else if (e.key === "Home") show(0);
+    else if (e.key === "End") show(slides.length - 1);
+    else if (e.key === "n" || e.key === "N") toggleNotes();
+    else if (e.key === "f" || e.key === "F") fullscreen();
+  });
+  document.getElementById("prev").onclick = () => show(i - 1);
+  document.getElementById("next").onclick = () => show(i + 1);
+  document.getElementById("ntog").onclick = toggleNotes;
+  document.getElementById("fs").onclick = fullscreen;
+
+  let x0 = null;
+  addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  addEventListener("touchend", (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50) show(i + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+  addEventListener("hashchange", () => show((parseInt(location.hash.slice(1), 10) || 1) - 1));
+  addEventListener("resize", fit);
+  fit(); show(i);
+})();
+</script>
+</body>
+</html>
