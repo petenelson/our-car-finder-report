@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Car Generations Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
+<style>
+:root { --bg:#f3f4f1; --paper:#fff; --ink:#15201b; --muted:#5d6a63; --line:#dde1db; --accent:#1b6a46; --soft:#e3efe8; --warn:#b5541f; --star:#b07d12;
+  --head:"Barlow Condensed","Arial Narrow",system-ui,sans-serif; --body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif; }
+@media (prefers-color-scheme: dark) { :root { --bg:#111814; --paper:#18221d; --ink:#e6eee9; --muted:#9db0a5; --line:#2a3a31; --accent:#6fcf9b; --soft:#1f3329; --warn:#f08a5d; --star:#e0b146; } }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 var(--body); -webkit-font-smoothing:antialiased; }
+.wrap { max-width:1040px; margin:0 auto; padding:28px 16px 60px; }
+a { color:var(--accent); text-underline-offset:3px; }
+.kicker { font:600 13px/1 var(--body); letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:0 0 8px; }
+h1 { font:700 clamp(38px,7vw,56px)/1 var(--head); margin:0 0 10px; }
+.intro { color:var(--muted); max-width:760px; margin:0 0 22px; }
+nav.jump { display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; margin-bottom:22px; }
+nav.jump a { flex:none; padding:6px 12px; border:1px solid var(--line); border-radius:999px; background:var(--paper); text-decoration:none; color:var(--ink); font-size:14px; }
+.tbl { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+table { border-collapse:collapse; width:100%; min-width:680px; font-size:14.5px; }
+th { text-align:left; font:600 11.5px/1.2 var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:8px 10px; border-bottom:2px solid var(--ink); white-space:nowrap; }
+td { padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+td small { display:block; color:var(--muted); font-size:12.5px; }
+.n { text-align:right; font-variant-numeric:tabular-nums; }
+tr.dim td { color:var(--muted); opacity:.7; }
+.st { color:var(--star); letter-spacing:1px; white-space:nowrap; }
+.st.low { color:var(--warn); }
+.overview { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:14px 14px 6px; margin-bottom:34px; }
+.overview h2 { font:700 26px/1 var(--head); margin:2px 0 10px; }
+.model { margin-bottom:40px; scroll-margin-top:12px; }
+.model-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 14px; border-bottom:3px solid var(--ink); padding-bottom:6px; }
+.model-head h2 { font:700 36px/1 var(--head); margin:0; }
+.model-head .body { color:var(--muted); font-size:15px; }
+.bottom { font-size:17px; margin:10px 0 14px; }
+.gen { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:14px; }
+.gen-head { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:6px 12px; margin-bottom:8px; }
+.gen-head h3 { font:700 24px/1.1 var(--head); margin:0; }
+.gen-head h3 span { color:var(--muted); font-weight:600; }
+.pill { background:var(--soft); color:var(--accent); font-weight:600; font-size:13.5px; padding:4px 10px; border-radius:999px; }
+dl { display:grid; grid-template-columns:130px 1fr; gap:6px 14px; margin:0 0 12px; font-size:15px; }
+dt { font:600 12px/1.6 var(--body); letter-spacing:.07em; text-transform:uppercase; color:var(--muted); }
+dd { margin:0; }
+.best { margin:10px 0 0; font-size:14.5px; }
+.notes { color:var(--muted); font-size:14px; border-top:1px solid var(--line); padding-top:14px; }
+@media (max-width:600px) { dl { grid-template-columns:1fr; gap:0 } dd { margin-bottom:8px } .gen { padding:14px } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Our Car Finder · snapshot from Oct 9, 2026</p>
+  <h1>Generations guide</h1>
+  <p class="intro">Every model and generation that has listings matching our search right now ($6–10k, 2011+, under 150k miles, within 250 miles of Austin): what changed between years, what to check, and how each model year rates for reliability. This is a one-time snapshot; the <a href="https://petenelson.github.io/our-car-finder-report/">live report</a> keeps updating.</p>
+  <nav class="jump"><a href="#sienna">Sienna</a><a href="#odyssey">Odyssey</a><a href="#highlander">Highlander</a><a href="#pilot">Pilot</a><a href="#rav4">RAV4</a><a href="#crv">CR-V</a><a href="#venza">Venza</a><a href="#priusv">Prius v</a><a href="#rx">RX</a><a href="#mdx">MDX</a><a href="#rdx">RDX</a></nav>
+
+  <div class="overview">
+    <h2>At a glance</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Model / generation</th><th class="n">Matches</th><th class="n">Median price</th><th class="n">Median miles</th><th class="n">Max cargo (cu ft)</th><th>Avg reliability</th><th class="n">Good/great deals</th></tr></thead>
+      <tbody><tr><td><a href="#odyssey">Honda Odyssey</a><small>4th generation · 2011–2017</small></td><td class="n">38</td><td class="n">$8,575</td><td class="n">136k</td><td class="n">148.5</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span> <small>2.4</small></td><td class="n">12</td></tr><tr><td><a href="#rdx">Acura RDX</a><small>2nd generation · 2013–2018</small></td><td class="n">27</td><td class="n">$9,075</td><td class="n">128k</td><td class="n">61.3</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span> <small>1.7</small></td><td class="n">6</td></tr><tr><td><a href="#crv">Honda CR-V</a><small>4th generation · 2012–2016</small></td><td class="n">17</td><td class="n">$9,500</td><td class="n">140k</td><td class="n">70.9</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span> <small>2.4</small></td><td class="n">4</td></tr><tr><td><a href="#pilot">Honda Pilot</a><small>2nd generation · 2009–2015</small></td><td class="n">15</td><td class="n">$8,000</td><td class="n">141k</td><td class="n">87.0</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span> <small>2.8</small></td><td class="n">5</td></tr><tr><td><a href="#sienna">Toyota Sienna</a><small>3rd generation · 2011–2020</small></td><td class="n">12</td><td class="n">$9,498</td><td class="n">128k</td><td class="n">150.0</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span> <small>1.8</small></td><td class="n">6</td></tr><tr><td><a href="#mdx">Acura MDX</a><small>2nd generation · 2007–2013</small></td><td class="n">12</td><td class="n">$8,700</td><td class="n">126k</td><td class="n">83.5</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span> <small>2.7</small></td><td class="n">–</td></tr><tr><td><a href="#venza">Toyota Venza</a><small>1st generation · 2009–2015</small></td><td class="n">11</td><td class="n">$9,224</td><td class="n">130k</td><td class="n">70.1</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span> <small>3.0</small></td><td class="n">3</td></tr><tr><td><a href="#rav4">Toyota RAV4</a><small>3rd generation · 2006–2012</small></td><td class="n">10</td><td class="n">$8,348</td><td class="n">138k</td><td class="n">73.0</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span> <small>3.0</small></td><td class="n">2</td></tr><tr><td><a href="#rav4">Toyota RAV4</a><small>4th generation · 2013–2018</small></td><td class="n">7</td><td class="n">$9,850</td><td class="n">129k</td><td class="n">73.4</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span> <small>3.3</small></td><td class="n">3</td></tr><tr><td><a href="#mdx">Acura MDX</a><small>3rd generation · 2014–2020</small></td><td class="n">7</td><td class="n">$9,645</td><td class="n">130k</td><td class="n">90.9</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span> <small>1.2</small></td><td class="n">5</td></tr><tr><td><a href="#priusv">Toyota Prius v</a><small>1st generation · 2012–2017</small></td><td class="n">5</td><td class="n">$9,000</td><td class="n">118k</td><td class="n">67.3</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span> <small>1.0</small></td><td class="n">1</td></tr><tr><td><a href="#crv">Honda CR-V</a><small>3rd generation · 2007–2011</small></td><td class="n">4</td><td class="n">$9,422</td><td class="n">134k</td><td class="n">72.9</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span> <small>3.0</small></td><td class="n">2</td></tr><tr><td><a href="#rdx">Acura RDX</a><small>1st generation · 2007–2012</small></td><td class="n">4</td><td class="n">$8,684</td><td class="n">114k</td><td class="n">60.6</td><td><span class="st" aria-label="5 of 5 stars">★★★★★</span> <small>5.0</small></td><td class="n">–</td></tr><tr><td><a href="#highlander">Toyota Highlander</a><small>2nd generation · 2008–2013</small></td><td class="n">3</td><td class="n">$8,000</td><td class="n">143k</td><td class="n">95.4</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span> <small>3.0</small></td><td class="n">1</td></tr><tr><td><a href="#pilot">Honda Pilot</a><small>3rd generation · 2016–2022</small></td><td class="n">2</td><td class="n">$9,350</td><td class="n">132k</td><td class="n">83.9</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span> <small>1.0</small></td><td class="n">–</td></tr><tr><td><a href="#rx">Lexus RX</a><small>3rd generation · 2010–2015</small></td><td class="n">1</td><td class="n">$8,500</td><td class="n">—</td><td class="n">80.3</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span> <small>4.0</small></td><td class="n">–</td></tr></tbody>
+    </table></div>
+  </div>
+
+  
+    <section class="model" id="sienna">
+      <div class="model-head">
+        <h2>Toyota Sienna</h2>
+        <span class="body">Minivan · 12 current matches</span>
+      </div>
+      <p class="bottom">The roomiest van here and the only one with AWD. 2013–2014 drew far fewer complaints than 2011.</p>
+      
+      <div class="gen">
+        <div class="gen-head">
+          <h3>3rd generation <span>2011–2020</span></h3>
+          <div class="pill">12 matches · $6,500–$9,995 · median 128k mi · 6 good/great deals</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>3.5L V6, 266 hp, 6-speed automatic (2011–2016). 2011–2012 base models also offered a 2.7L 4-cylinder (187 hp). 2017+ V6 makes 296 hp with an 8-speed.</dd>
+          <dt>Drive</dt><dd>FWD; AWD available with the V6 (the only AWD minivan of this era).</dd>
+          <dt>Features</dt><dd>7 or 8 seats. Power sliding doors on most trims; SE trim (2011+) has sport-tuned suspension. XLE/Limited add leather, sunroof, and power liftgate; Limited adds a dual-view rear entertainment screen option.</dd>
+          <dt>Updates</dt><dd>2015 refresh: new dashboard and gauges, quieter cabin, more standard features. 2018: Toyota Safety Sense standard.</dd>
+          <dt>Cargo</dt><dd>150.0 cu ft max · 87.1 behind 2nd row · 39.1 behind 3rd row · seats 7–8</dd>
+          <dt>Known issues</dt><dd>Power sliding door cables and motors are the usual repair. 2011, the first year of this generation, drew the most complaints.</dd>
+          <dt>Before you buy</dt><dd>Run both power sliding doors through several cycles; listen for grinding and check that they latch. Ask whether the sliding-door recall was done (VIN check at nhtsa.gov).</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2011</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>35.8</td><td>14</td><td>structure, electrical system, wheels</td><td class="n">4</td><td><a href="https://autojunket.com/vehicles/2011-toyota-sienna" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2012</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>14.8</td><td>9</td><td>structure, electrical system, power train</td><td class="n">5</td><td><a href="https://autojunket.com/vehicles/2012-toyota-sienna" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2013</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>11.6</td><td>6</td><td>structure, electrical system, power train</td><td class="n">2</td><td><a href="https://autojunket.com/vehicles/2013-toyota-sienna" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2014</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>11.2</td><td>6</td><td>structure, electrical system, fuel/propulsion system</td><td class="n">1</td><td><a href="https://autojunket.com/vehicles/2014-toyota-sienna" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2015</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>16.2</td><td>6</td><td>structure, electrical system, service brakes</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2015-toyota-sienna" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2016</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>5.2</td><td>5</td><td>structure, electrical system, seat belts</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2016-toyota-sienna" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2017</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>11.2</td><td>10</td><td>power train, electrical system, wheels</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2017-toyota-sienna" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2018</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>4.8</td><td>7</td><td>power train, fuel/propulsion system, electrical system</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2018-toyota-sienna" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2019</td><td><span class="st" aria-label="5 of 5 stars">★★★★★</span></td><td>3.1</td><td>7</td><td>power train, fuel/propulsion system, structure</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2019-toyota-sienna" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2020</td><td><span class="st" aria-label="5 of 5 stars">★★★★★</span></td><td>2.8</td><td>2</td><td>power train, electrical system, engine</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2020-toyota-sienna" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.craigslist.org/view/d/houston-toyota-sienna-2013-leather/ftcPRcwgTeAvBYM7tQnGB2" target="_blank" rel="noopener">2013 Sienna  · $9,500 · 120k mi · Houston</a></p>
+      </div>
+    </section>
+    <section class="model" id="odyssey">
+      <div class="model-head">
+        <h2>Honda Odyssey</h2>
+        <span class="body">Minivan · 38 current matches</span>
+      </div>
+      <p class="bottom">The most listings in the search. It drives better than the Sienna, but budget for VCM issues and the timing belt.</p>
+      
+      <div class="gen">
+        <div class="gen-head">
+          <h3>4th generation <span>2011–2017</span></h3>
+          <div class="pill">38 matches · $6,300–$9,999 · median 136k mi · 12 good/great deals</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>3.5L V6 with cylinder deactivation (VCM), 248 hp. 5-speed automatic on most 2011–2013 trims (6-speed on Touring); 6-speed on all trims from 2014.</dd>
+          <dt>Drive</dt><dd>FWD only.</dd>
+          <dt>Features</dt><dd>7 or 8 seats. EX and up get power sliding doors; Touring adds navigation, memory seats, and a 6-speed. 2014 Touring Elite has a built-in vacuum (HondaVAC).</dd>
+          <dt>Updates</dt><dd>2014 refresh: direct-injected V6, 6-speed standard, new front end and dash, LaneWatch side camera on EX and up, forward collision warning on upper trims.</dd>
+          <dt>Cargo</dt><dd>148.5 cu ft max · 93.1 behind 2nd row · 38.4 behind 3rd row · seats 7–8</dd>
+          <dt>Known issues</dt><dd>The V6&#x27;s cylinder deactivation (VCM) is linked to oil burning and fouled spark plugs. Check for misfires and oil use.</dd>
+          <dt>Before you buy</dt><dd>Look for misfire codes and oil use on 2011–2013 (VCM). Ask for timing-belt service records past ~105k miles. Test-drive for shudder at 20–40 mph on 2014+.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2011</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>18.9</td><td>5</td><td>electrical system, service brakes, engine</td><td class="n">6</td><td><a href="https://autojunket.com/vehicles/2011-honda-odyssey" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2012</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>19.9</td><td>5</td><td>service brakes, engine, electrical system</td><td class="n">10</td><td><a href="https://autojunket.com/vehicles/2012-honda-odyssey" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2013</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>17.1</td><td>6</td><td>engine, service brakes, structure</td><td class="n">5</td><td><a href="https://autojunket.com/vehicles/2013-honda-odyssey" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2014</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>24.1</td><td>5</td><td>power train, engine, service brakes</td><td class="n">4</td><td><a href="https://autojunket.com/vehicles/2014-honda-odyssey" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2015</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>15.6</td><td>6</td><td>engine, power train, electrical system</td><td class="n">3</td><td><a href="https://autojunket.com/vehicles/2015-honda-odyssey" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2016</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>21.2</td><td>6</td><td>engine, electrical system, power train</td><td class="n">9</td><td><a href="https://autojunket.com/vehicles/2016-honda-odyssey" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2017</td><td><span class="st" aria-label="5 of 5 stars">★★★★★</span></td><td>2.8</td><td>2</td><td>engine, power train, electrical system</td><td class="n">1</td><td><a href="https://autojunket.com/vehicles/2017-honda-odyssey" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.facebook.com/marketplace/item/2233459934270713/" target="_blank" rel="noopener">2016 Odyssey  · $7,450 · 98k mi · Lancaster, TX</a></p>
+      </div>
+    </section>
+    <section class="model" id="highlander">
+      <div class="model-head">
+        <h2>Toyota Highlander</h2>
+        <span class="body">3-row SUV · 3 current matches</span>
+      </div>
+      <p class="bottom">A dependable 3-row SUV, though the 3rd row is small. Few match because they hold their value.</p>
+      
+      <div class="gen">
+        <div class="gen-head">
+          <h3>2nd generation <span>2008–2013</span></h3>
+          <div class="pill">3 matches · $7,999–$9,600 · median 143k mi · 1 good/great deal</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>3.5L V6, 270 hp, 5-speed automatic. Base models offered a 2.7L 4-cylinder (187 hp, 6-speed). A Hybrid with AWD was also sold.</dd>
+          <dt>Drive</dt><dd>FWD or AWD (V6).</dd>
+          <dt>Features</dt><dd>Up to 7 seats on most trims, with a small 3rd row. SE and Limited add leather, sunroof and power liftgate.</dd>
+          <dt>Updates</dt><dd>2011 refresh: new grille and lights, updated interior trim, standard 3rd row on more trims.</dd>
+          <dt>Cargo</dt><dd>95.4 cu ft max · 42.3 behind 2nd row · 10.3 behind 3rd row · seats 7–8</dd>
+          <dt>Known issues</dt><dd>Few widespread problems reported for this generation.</dd>
+          <dt>Before you buy</dt><dd>Few widespread problems. Confirm water-pump and timing-chain area isn&#x27;t leaking on high-mileage V6s; check the 3rd row folds cleanly.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2011</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>10.2</td><td>5</td><td>steering, structure, visibility/wiper</td><td class="n">1</td><td><a href="https://autojunket.com/vehicles/2011-toyota-highlander" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2012</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>10.1</td><td>2</td><td>steering, electrical system, structure</td><td class="n">2</td><td><a href="https://autojunket.com/vehicles/2012-toyota-highlander" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2013</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>11.1</td><td>3</td><td>steering, engine, vehicle speed control</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2013-toyota-highlander" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.facebook.com/marketplace/item/1574839394145037/" target="_blank" rel="noopener">2012 Highlander  · $9,600 · 80k mi · Austin, TX</a></p>
+      </div>
+    </section>
+    <section class="model" id="pilot">
+      <div class="model-head">
+        <h2>Honda Pilot</h2>
+        <span class="body">3-row SUV · 17 current matches</span>
+      </div>
+      <p class="bottom">The roomiest 3-row SUV in this price range; watch the VCM years.</p>
+      
+      <div class="gen">
+        <div class="gen-head">
+          <h3>2nd generation <span>2009–2015</span></h3>
+          <div class="pill">15 matches · $6,500–$9,995 · median 141k mi · 5 good/great deals</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>3.5L V6 with cylinder deactivation (VCM), 250 hp, 5-speed automatic.</dd>
+          <dt>Drive</dt><dd>FWD or 4WD.</dd>
+          <dt>Features</dt><dd>8 seats. Boxy shape gives a usable 3rd row and big cargo opening. EX-L adds leather and sunroof; Touring adds navigation and rear entertainment.</dd>
+          <dt>Updates</dt><dd>2012 refresh: new grille, quieter cabin, updated interior, slightly better fuel economy.</dd>
+          <dt>Cargo</dt><dd>87.0 cu ft max · 47.7 behind 2nd row · 20.8 behind 3rd row · seats 8</dd>
+          <dt>Known issues</dt><dd>2011–2013 V6 cylinder deactivation (VCM) is linked to oil burning and misfires.</dd>
+          <dt>Before you buy</dt><dd>Look for misfires and oil burning on 2011–2013 (VCM). Timing belt due around 105k miles; ask for proof.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2011</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>15.8</td><td>11</td><td>service brakes, suspension, steering</td><td class="n">1</td><td><a href="https://autojunket.com/vehicles/2011-honda-pilot" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2012</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>10.5</td><td>9</td><td>engine, service brakes, electrical system</td><td class="n">3</td><td><a href="https://autojunket.com/vehicles/2012-honda-pilot" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2013</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>16.9</td><td>6</td><td>engine, power train, structure</td><td class="n">4</td><td><a href="https://autojunket.com/vehicles/2013-honda-pilot" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2014</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>6.9</td><td>3</td><td>engine, structure, wheels</td><td class="n">1</td><td><a href="https://autojunket.com/vehicles/2014-honda-pilot" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2015</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>6.4</td><td>4</td><td>engine, electrical system, service brakes</td><td class="n">6</td><td><a href="https://autojunket.com/vehicles/2015-honda-pilot" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.facebook.com/marketplace/item/1737058397573252/" target="_blank" rel="noopener">2015 Pilot  · $7,599 · 106k mi · Houston, TX</a></p>
+      </div>
+      <div class="gen">
+        <div class="gen-head">
+          <h3>3rd generation <span>2016–2022</span></h3>
+          <div class="pill">2 matches · $9,200–$9,500 · median 132k mi</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>3.5L direct-injected V6, 280 hp. 6-speed automatic on LX/EX/EX-L; 9-speed on Touring and Elite.</dd>
+          <dt>Drive</dt><dd>FWD or AWD.</dd>
+          <dt>Features</dt><dd>7 or 8 seats. Honda Sensing (adaptive cruise, lane keeping, automatic braking) available; standard from 2019.</dd>
+          <dt>Updates</dt><dd>2019 refresh: Honda Sensing standard, 9-speed on more trims, new infotainment.</dd>
+          <dt>Cargo</dt><dd>83.9 cu ft max · 46.8 behind 2nd row · 16.5 behind 3rd row · seats 8</dd>
+          <dt>Known issues</dt><dd>2016–2018 fuel injector failures (Honda extended the warranty) and rough 9-speed shifting on upper trims.</dd>
+          <dt>Before you buy</dt><dd>2016–2018 fuel injector failures (Honda extended the warranty), so ask if the injectors were replaced. Test the 9-speed for rough or slow shifts.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2016</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>110.3</td><td>8</td><td>engine, electrical system, power train</td><td class="n">2</td><td><a href="https://autojunket.com/vehicles/2016-honda-pilot" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2017</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>61.3</td><td>4</td><td>engine, electrical system, fuel/propulsion system</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2017-honda-pilot" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2018</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>28.6</td><td>7</td><td>engine, electrical system, power train</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2018-honda-pilot" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2019</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>59.4</td><td>13</td><td>electrical system, engine, forward collision avoidance</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2019-honda-pilot" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2020</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>32.1</td><td>11</td><td>electrical system, engine, forward collision avoidance</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2020-honda-pilot" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2021</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>26.6</td><td>10</td><td>electrical system, engine, forward collision avoidance</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2021-honda-pilot" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2022</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>9.8</td><td>5</td><td>forward collision avoidance, electrical system, engine</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2022-honda-pilot" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.facebook.com/marketplace/item/964273062594102/" target="_blank" rel="noopener">2016 Pilot  · $9,200 · 116k mi · Dallas, TX</a></p>
+      </div>
+    </section>
+    <section class="model" id="rav4">
+      <div class="model-head">
+        <h2>Toyota RAV4</h2>
+        <span class="body">Compact SUV · 17 current matches</span>
+      </div>
+      <p class="bottom">Simple and durable. 2013+ is roomier, but 2011–2012 can be had with the fast V6.</p>
+      
+      <div class="gen">
+        <div class="gen-head">
+          <h3>3rd generation <span>2006–2012</span></h3>
+          <div class="pill">10 matches · $7,300–$9,995 · median 138k mi · 2 good/great deals</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>2.5L 4-cylinder, 179 hp, 4-speed automatic; or 3.5L V6, 269 hp, 5-speed (fast and rare).</dd>
+          <dt>Drive</dt><dd>FWD or AWD.</dd>
+          <dt>Features</dt><dd>5 seats (a tiny optional 3rd row on some). Side-hinged rear door with the spare tire mounted on it.</dd>
+          <dt>Updates</dt><dd>2011: minor trim and equipment updates.</dd>
+          <dt>Cargo</dt><dd>73.0 cu ft max · 36.4 behind 2nd row · seats 5</dd>
+          <dt>Known issues</dt><dd></dd>
+          <dt>Before you buy</dt><dd>The 2.5L is durable; listen for a rattling rear door and check the spare-tire carrier hinge.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2011</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>8.1</td><td>11</td><td>vehicle speed control, visibility/wiper, service brakes</td><td class="n">4</td><td><a href="https://autojunket.com/vehicles/2011-toyota-rav4" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2012</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>7.2</td><td>5</td><td>visibility/wiper, vehicle speed control, service brakes</td><td class="n">6</td><td><a href="https://autojunket.com/vehicles/2012-toyota-rav4" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.cars.com/vehicledetail/b7748162-b22d-4218-8421-3c11ad348826/" target="_blank" rel="noopener">2012 RAV4 Base · $7,995 · 144k mi · Rosenberg, TX</a></p>
+      </div>
+      <div class="gen">
+        <div class="gen-head">
+          <h3>4th generation <span>2013–2018</span></h3>
+          <div class="pill">7 matches · $7,500–$10,000 · median 129k mi · 3 good/great deals</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>2.5L 4-cylinder, 176 hp, 6-speed automatic. No V6. Hybrid (AWD) added for 2016.</dd>
+          <dt>Drive</dt><dd>FWD or AWD.</dd>
+          <dt>Features</dt><dd>5 seats. Conventional liftgate (spare moved under the floor). Limited adds a power liftgate and blind-spot monitoring.</dd>
+          <dt>Updates</dt><dd>2016 refresh: new styling, Hybrid model, more safety tech. 2017: Toyota Safety Sense standard.</dd>
+          <dt>Cargo</dt><dd>73.4 cu ft max · 38.4 behind 2nd row · seats 5</dd>
+          <dt>Known issues</dt><dd>Few widespread problems reported for this generation.</dd>
+          <dt>Before you buy</dt><dd>Few widespread problems. Feel for a shudder at light throttle around 25–45 mph (torque converter) on early years.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2013</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>6.5</td><td>2</td><td>electrical system, engine, power train</td><td class="n">4</td><td><a href="https://autojunket.com/vehicles/2013-toyota-rav4" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2014</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>5.1</td><td>4</td><td>electrical system, engine, steering</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2014-toyota-rav4" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2015</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>8.0</td><td>4</td><td>electrical system, steering, engine</td><td class="n">1</td><td><a href="https://autojunket.com/vehicles/2015-toyota-rav4" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2016</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>6.0</td><td>3</td><td>electrical system, service brakes, exterior lighting</td><td class="n">2</td><td><a href="https://autojunket.com/vehicles/2016-toyota-rav4" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2017</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>7.8</td><td>3</td><td>electrical system, service brakes, exterior lighting</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2017-toyota-rav4" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2018</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>8.2</td><td>3</td><td>electrical system, engine, service brakes</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2018-toyota-rav4" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.facebook.com/marketplace/item/3557641511054451/" target="_blank" rel="noopener">2013 RAV4  · $9,850 · 18k mi · Fort Worth, TX</a></p>
+      </div>
+    </section>
+    <section class="model" id="crv">
+      <div class="model-head">
+        <h2>Honda CR-V</h2>
+        <span class="body">Compact SUV · 21 current matches</span>
+      </div>
+      <p class="bottom">Lots of listings and cheap to run. Check the A/C.</p>
+      
+      <div class="gen">
+        <div class="gen-head">
+          <h3>3rd generation <span>2007–2011</span></h3>
+          <div class="pill">4 matches · $7,900–$9,927 · median 134k mi · 2 good/great deals</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>2.4L 4-cylinder, 180 hp, 5-speed automatic.</dd>
+          <dt>Drive</dt><dd>FWD or AWD.</dd>
+          <dt>Features</dt><dd>5 seats. Liftgate replaced the older side-hinged door.</dd>
+          <dt>Updates</dt><dd>2010 refresh: more power, updated styling.</dd>
+          <dt>Cargo</dt><dd>72.9 cu ft max · 35.7 behind 2nd row · seats 5</dd>
+          <dt>Known issues</dt><dd></dd>
+          <dt>Before you buy</dt><dd>Listen for a brief rattle on cold start (VTC actuator) and check that the A/C blows cold.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2011</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>7.0</td><td>13</td><td>electrical system, structure, engine</td><td class="n">4</td><td><a href="https://autojunket.com/vehicles/2011-honda-cr-v" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.autotrader.com/cars-for-sale/vehicle/768430302" target="_blank" rel="noopener">2011 CR-V EX-L · $8,995 · 129k mi · Houston, TX</a></p>
+      </div>
+      <div class="gen">
+        <div class="gen-head">
+          <h3>4th generation <span>2012–2016</span></h3>
+          <div class="pill">17 matches · $7,800–$10,000 · median 140k mi · 4 good/great deals</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>2.4L 4-cylinder, 185 hp. 5-speed automatic for 2012–2014; direct injection and a CVT from 2015.</dd>
+          <dt>Drive</dt><dd>FWD or AWD.</dd>
+          <dt>Features</dt><dd>5 seats. Rear seats fold flat with one pull. EX adds sunroof and backup camera; EX-L adds leather; 2015 Touring adds Honda Sensing.</dd>
+          <dt>Updates</dt><dd>2015 refresh: new engine and CVT, quieter cabin, more features, better fuel economy.</dd>
+          <dt>Cargo</dt><dd>70.9 cu ft max · 37.2 behind 2nd row · seats 5</dd>
+          <dt>Known issues</dt><dd>A/C compressor and condenser failures are common; 2015–2016 owners report vibration at idle.</dd>
+          <dt>Before you buy</dt><dd>Make sure the A/C blows cold (compressor failures are common). On 2015–2016, feel for vibration at idle in Drive.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2012</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>10.5</td><td>3</td><td>engine, electrical system, power train</td><td class="n">3</td><td><a href="https://autojunket.com/vehicles/2012-honda-cr-v" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2013</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>10.0</td><td>2</td><td>engine, power train, electrical system</td><td class="n">7</td><td><a href="https://autojunket.com/vehicles/2013-honda-cr-v" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2014</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>15.1</td><td>1</td><td>engine, electrical system, power train</td><td class="n">5</td><td><a href="https://autojunket.com/vehicles/2014-honda-cr-v" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2015</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>16.9</td><td>3</td><td>engine, power train, electrical system</td><td class="n">1</td><td><a href="https://autojunket.com/vehicles/2015-honda-cr-v" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2016</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>9.8</td><td>3</td><td>engine, fuel/propulsion system, electrical system</td><td class="n">1</td><td><a href="https://autojunket.com/vehicles/2016-honda-cr-v" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.cars.com/vehicledetail/cbd978f1-37c5-481d-b09f-1d6841c46462/" target="_blank" rel="noopener">2014 CR-V EX-L · $9,500 · 120k mi · Dallas, TX</a></p>
+      </div>
+    </section>
+    <section class="model" id="venza">
+      <div class="model-head">
+        <h2>Toyota Venza</h2>
+        <span class="body">Crossover wagon · 11 current matches</span>
+      </div>
+      <p class="bottom">A comfortable wagon-like 5-seater with a low ride height; uncommon and few known problems.</p>
+      
+      <div class="gen">
+        <div class="gen-head">
+          <h3>1st generation <span>2009–2015</span></h3>
+          <div class="pill">11 matches · $7,800–$10,000 · median 130k mi · 3 good/great deals</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>2.7L 4-cylinder, 182 hp, or 3.5L V6, 268 hp; both 6-speed automatic.</dd>
+          <dt>Drive</dt><dd>FWD or AWD.</dd>
+          <dt>Features</dt><dd>5 seats. A tall wagon built on the Camry platform: low step-in height, car-like ride, wide cargo floor.</dd>
+          <dt>Updates</dt><dd>2013 refresh: updated front end, Entune infotainment.</dd>
+          <dt>Cargo</dt><dd>70.1 cu ft max · 30.7 behind 2nd row · seats 5</dd>
+          <dt>Known issues</dt><dd>Few widespread problems reported.</dd>
+          <dt>Before you buy</dt><dd>Few widespread problems. Check the power liftgate and the large wheels and tires (expensive to replace).</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2011</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>12.5</td><td>6</td><td>electrical system, service brakes, seats</td><td class="n">3</td><td></td></tr><tr class=""><td>2012</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>4.2</td><td>4</td><td>visibility/wiper, structure, steering</td><td class="n">3</td><td><a href="https://autojunket.com/vehicles/2012-toyota-venza" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2013</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>11.2</td><td>4</td><td>electrical system, structure, service brakes</td><td class="n">4</td><td></td></tr><tr class=""><td>2014</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>5.2</td><td>1</td><td>vehicle speed control, steering, suspension</td><td class="n">1</td><td></td></tr><tr class="dim"><td>2015</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>3.5</td><td>1</td><td>service brakes, seats, engine</td><td class="n">–</td><td></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.craigslist.org/view/d/pflugerville-2012-toyota-venza-fwd-4c-le/cRDbERUhjtC4cz3s3tVMai" target="_blank" rel="noopener">2012 Venza  · $7,800 · 130k mi · Pflugerville, TX</a></p>
+      </div>
+    </section>
+    <section class="model" id="priusv">
+      <div class="model-head">
+        <h2>Toyota Prius v</h2>
+        <span class="body">Wagon · 5 current matches</span>
+      </div>
+      <p class="bottom">The cheapest to fuel by far; the battery&#x27;s age is the big unknown.</p>
+      
+      <div class="gen">
+        <div class="gen-head">
+          <h3>1st generation <span>2012–2017</span></h3>
+          <div class="pill">5 matches · $7,400–$9,695 · median 118k mi · 1 good/great deal</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>1.8L hybrid, 134 hp combined, eCVT. About 42 mpg combined.</dd>
+          <dt>Drive</dt><dd>FWD only.</dd>
+          <dt>Features</dt><dd>5 seats. Rear seats slide and recline; much more cargo room than a regular Prius.</dd>
+          <dt>Updates</dt><dd>2015 refresh: new front end, updated interior and infotainment.</dd>
+          <dt>Cargo</dt><dd>67.3 cu ft max · 34.3 behind 2nd row · seats 5</dd>
+          <dt>Known issues</dt><dd>An aging hybrid battery is the main cost risk; the 1.8L hybrid engine can clog its EGR system and fail a head gasket at high mileage.</dd>
+          <dt>Before you buy</dt><dd>Ask for a hybrid-battery health check. At high mileage, look for coolant loss or overheating (EGR clogging and head gasket).</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2012</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>230.0</td><td>4</td><td>service brakes, electrical system, engine</td><td class="n">3</td><td></td></tr><tr class=""><td>2013</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>168.8</td><td>3</td><td>service brakes, electrical system, engine</td><td class="n">1</td><td></td></tr><tr class="dim"><td>2014</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>91.2</td><td>4</td><td>service brakes, electrical system, engine</td><td class="n">–</td><td></td></tr><tr class=""><td>2015</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>50.8</td><td>2</td><td>service brakes, electrical system, power train</td><td class="n">1</td><td></td></tr><tr class="dim"><td>2016</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>55.2</td><td>1</td><td>visibility/wiper, electrical system, service brakes</td><td class="n">–</td><td></td></tr><tr class="dim"><td>2017</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>37.2</td><td>1</td><td>visibility/wiper, vehicle speed control, service brakes</td><td class="n">–</td><td></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.autotrader.com/cars-for-sale/vehicle/783506032" target="_blank" rel="noopener">2013 Prius v Two · $9,695 · 121k mi · Dallas, TX</a></p>
+      </div>
+    </section>
+    <section class="model" id="rx">
+      <div class="model-head">
+        <h2>Lexus RX</h2>
+        <span class="body">Luxury midsize SUV · 1 current match</span>
+      </div>
+      <p class="bottom">A luxury Highlander for 5; rare in this budget.</p>
+      
+      <div class="gen">
+        <div class="gen-head">
+          <h3>3rd generation <span>2010–2015</span></h3>
+          <div class="pill">1 match · $8,500–$8,500</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>RX 350: 3.5L V6, 275 hp, 6-speed automatic. RX 450h: V6 hybrid, 295 hp combined, eCVT.</dd>
+          <dt>Drive</dt><dd>FWD or AWD.</dd>
+          <dt>Features</dt><dd>5 seats. Quiet, comfortable luxury crossover; shares its V6 with the Highlander. Remote Touch controller for navigation.</dd>
+          <dt>Updates</dt><dd>2013 refresh: spindle grille, F Sport trim added, updated interior.</dd>
+          <dt>Cargo</dt><dd>80.3 cu ft max · 40.0 behind 2nd row · seats 5</dd>
+          <dt>Known issues</dt><dd>Dashboards can turn sticky or crack in Texas heat; otherwise few widespread problems. Same V6 as the Highlander.</dd>
+          <dt>Before you buy</dt><dd>Check the dashboard for stickiness or cracks (Lexus ran a replacement program). Same durable V6 as the Highlander.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class="dim"><td>2011</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>4.6</td><td>1</td><td>engine, service brakes, vehicle speed control</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2011-lexus-rx" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2012</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>4.0</td><td>1</td><td>vehicle speed control, service brakes, engine</td><td class="n">1</td><td><a href="https://autojunket.com/vehicles/2012-lexus-rx" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2013</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>6.3</td><td>1</td><td>service brakes, electrical system, structure</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2013-lexus-rx" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2014</td><td><span class="st" aria-label="5 of 5 stars">★★★★★</span></td><td>1.9</td><td>0</td><td>service brakes, structure, power train</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2014-lexus-rx" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2015</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>4.7</td><td>1</td><td>engine, fuel/propulsion system, vehicle speed control</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2015-lexus-rx" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.facebook.com/marketplace/item/1690168018713180/" target="_blank" rel="noopener">2012 RX  · $8,500 · Austin, TX</a></p>
+      </div>
+    </section>
+    <section class="model" id="mdx">
+      <div class="model-head">
+        <h2>Acura MDX</h2>
+        <span class="body">Luxury 3-row SUV · 19 current matches</span>
+      </div>
+      <p class="bottom">Most luxury for the money, with 3 rows and SH-AWD; budget for the timing belt.</p>
+      
+      <div class="gen">
+        <div class="gen-head">
+          <h3>2nd generation <span>2007–2013</span></h3>
+          <div class="pill">12 matches · $7,500–$9,995 · median 126k mi</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>3.7L V6, 300 hp, 6-speed automatic (2010–2013).</dd>
+          <dt>Drive</dt><dd>SH-AWD (torque-vectoring all-wheel drive) standard.</dd>
+          <dt>Features</dt><dd>7 seats. Technology package adds navigation and premium audio; Advance package adds adaptive cruise and ventilated seats.</dd>
+          <dt>Updates</dt><dd>2010 refresh: bigger 3.7L V6, 6-speed, new grille.</dd>
+          <dt>Cargo</dt><dd>83.5 cu ft max · 42.9 behind 2nd row · 15.0 behind 3rd row · seats 7</dd>
+          <dt>Known issues</dt><dd>Generally solid. The V6 timing belt is due about every 105k miles, so ask for proof it was done.</dd>
+          <dt>Before you buy</dt><dd>Timing belt due about every 105k miles; ask for proof. Check SH-AWD fluid service records.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2011</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>11.1</td><td>0</td><td>engine, power train, electrical system</td><td class="n">6</td><td><a href="https://autojunket.com/vehicles/2011-acura-mdx" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2012</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>10.7</td><td>1</td><td>engine, electrical system, power train</td><td class="n">2</td><td><a href="https://autojunket.com/vehicles/2012-acura-mdx" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2013</td><td><span class="st" aria-label="4 of 5 stars">★★★★☆</span></td><td>4.7</td><td>1</td><td>engine, electrical system, power train</td><td class="n">4</td><td><a href="https://autojunket.com/vehicles/2013-acura-mdx" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.cars.com/vehicledetail/8003a281-f91d-4244-ab2e-5d37f1a211ae/" target="_blank" rel="noopener">2011 MDX 3.7L Technology · $8,149 · 126k mi · Dallas, TX</a></p>
+      </div>
+      <div class="gen">
+        <div class="gen-head">
+          <h3>3rd generation <span>2014–2020</span></h3>
+          <div class="pill">7 matches · $7,400–$10,000 · median 130k mi · 5 good/great deals</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>3.5L direct-injected V6, 290 hp. 6-speed automatic for 2014–2015; 9-speed from 2016. Sport Hybrid from 2017.</dd>
+          <dt>Drive</dt><dd>FWD or SH-AWD.</dd>
+          <dt>Features</dt><dd>7 seats. Lighter and more efficient than before. AcuraWatch safety suite standard from 2017.</dd>
+          <dt>Updates</dt><dd>2016: 9-speed transmission and engine idle stop. 2017 refresh: new grille, AcuraWatch standard.</dd>
+          <dt>Cargo</dt><dd>90.9 cu ft max · 43.4 behind 2nd row · 15.8 behind 3rd row · seats 7</dd>
+          <dt>Known issues</dt><dd>2016+ 9-speed transmission draws rough-shifting complaints. Timing belt is due about every 105k miles.</dd>
+          <dt>Before you buy</dt><dd>Test the 9-speed (2016+) for rough or hesitant shifts. Timing belt due about every 105k miles.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2014</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>28.5</td><td>9</td><td>steering, electrical system, engine</td><td class="n">2</td><td><a href="https://autojunket.com/vehicles/2014-acura-mdx" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2015</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>11.3</td><td>8</td><td>electrical system, power train, structure</td><td class="n">2</td><td><a href="https://autojunket.com/vehicles/2015-acura-mdx" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2016</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>63.8</td><td>7</td><td>engine, power train, electrical system</td><td class="n">2</td><td><a href="https://autojunket.com/vehicles/2016-acura-mdx" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2017</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>43.6</td><td>8</td><td>engine, power train, electrical system</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2017-acura-mdx" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2018</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>28.9</td><td>10</td><td>engine, fuel/propulsion system, electrical system</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2018-acura-mdx" target=_blank rel=noopener>↗</a></td></tr><tr class="dim"><td>2019</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>32.2</td><td>9</td><td>engine, electrical system, power train</td><td class="n">–</td><td><a href="https://autojunket.com/vehicles/2019-acura-mdx" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2020</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>36.5</td><td>8</td><td>engine, electrical system, forward collision avoidance</td><td class="n">1</td><td><a href="https://autojunket.com/vehicles/2020-acura-mdx" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.facebook.com/marketplace/item/1374151970764939/" target="_blank" rel="noopener">2014 MDX  · $9,800 · 18k mi · Houston, TX</a></p>
+      </div>
+    </section>
+    <section class="model" id="rdx">
+      <div class="model-head">
+        <h2>Acura RDX</h2>
+        <span class="body">Luxury compact SUV · 31 current matches</span>
+      </div>
+      <p class="bottom">Lots of listings. The 2013+ V6 is the safer bet over the 1st-gen turbo.</p>
+      
+      <div class="gen">
+        <div class="gen-head">
+          <h3>1st generation <span>2007–2012</span></h3>
+          <div class="pill">4 matches · $8,350–$8,900 · median 114k mi</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>2.3L turbocharged 4-cylinder, 240 hp, 5-speed automatic.</dd>
+          <dt>Drive</dt><dd>SH-AWD standard; FWD available from 2010.</dd>
+          <dt>Features</dt><dd>5 seats. Sporty, firm-riding compact luxury crossover.</dd>
+          <dt>Updates</dt><dd>2010 refresh: new grille, FWD option.</dd>
+          <dt>Cargo</dt><dd>60.6 cu ft max · 27.8 behind 2nd row · seats 5</dd>
+          <dt>Known issues</dt><dd>The turbo 4-cylinder can need turbo work and burn oil at high mileage.</dd>
+          <dt>Before you buy</dt><dd>At high mileage, ask about turbo work and oil consumption.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2011</td><td><span class="st" aria-label="5 of 5 stars">★★★★★</span></td><td>1.6</td><td>2</td><td>electrical system, exterior lighting, power train</td><td class="n">1</td><td><a href="https://autojunket.com/vehicles/2011-acura-rdx" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2012</td><td><span class="st" aria-label="5 of 5 stars">★★★★★</span></td><td>1.6</td><td>2</td><td>electrical system, power train, steering</td><td class="n">3</td><td><a href="https://autojunket.com/vehicles/2012-acura-rdx" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.cars.com/vehicledetail/abbbb89a-b114-4c53-91c7-c8bc6e4238e6/" target="_blank" rel="noopener">2012 RDX FWD · $8,867 · 114k mi · Fort Worth, TX</a></p>
+      </div>
+      <div class="gen">
+        <div class="gen-head">
+          <h3>2nd generation <span>2013–2018</span></h3>
+          <div class="pill">27 matches · $6,200–$10,000 · median 128k mi · 6 good/great deals</div>
+        </div>
+        <dl>
+          <dt>Powertrain</dt><dd>3.5L V6 with cylinder deactivation, 273 hp (279 hp from 2016), 6-speed automatic.</dd>
+          <dt>Drive</dt><dd>FWD or AWD.</dd>
+          <dt>Features</dt><dd>5 seats. Smoother and roomier than the 1st generation. Technology package adds navigation; 2016+ Advance adds ventilated seats.</dd>
+          <dt>Updates</dt><dd>2016 refresh: more power, new styling, AcuraWatch safety features available.</dd>
+          <dt>Cargo</dt><dd>61.3 cu ft max · 26.1 behind 2nd row · seats 5</dd>
+          <dt>Known issues</dt><dd>V6 cylinder deactivation is linked to oil burning and misfires; timing belt is due about every 105k miles.</dd>
+          <dt>Before you buy</dt><dd>Check for misfires and oil burning (cylinder deactivation). Timing belt due about every 105k miles.</dd>
+        </dl>
+        <div class="tbl"><table>
+          <thead><tr><th>Year</th><th>Reliability</th><th>Complaints / 10k sold</th><th>Recalls</th><th>Most complaints</th><th class="n">Listed now</th><th>Autojunket</th></tr></thead>
+          <tbody><tr class=""><td>2013</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>27.3</td><td>3</td><td>exterior lighting, visibility/wiper, electrical system</td><td class="n">7</td><td><a href="https://autojunket.com/vehicles/2013-acura-rdx" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2014</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>43.6</td><td>3</td><td>exterior lighting, visibility/wiper, electrical system</td><td class="n">7</td><td><a href="https://autojunket.com/vehicles/2014-acura-rdx" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2015</td><td><span class="st low" aria-label="1 of 5 stars">★☆☆☆☆</span></td><td>84.0</td><td>3</td><td>exterior lighting, visibility/wiper, structure</td><td class="n">5</td><td><a href="https://autojunket.com/vehicles/2015-acura-rdx" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2016</td><td><span class="st" aria-label="3 of 5 stars">★★★☆☆</span></td><td>8.0</td><td>2</td><td>power train, electrical system, engine</td><td class="n">2</td><td><a href="https://autojunket.com/vehicles/2016-acura-rdx" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2017</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>15.8</td><td>1</td><td>power train, electrical system, engine</td><td class="n">5</td><td><a href="https://autojunket.com/vehicles/2017-acura-rdx" target=_blank rel=noopener>↗</a></td></tr><tr class=""><td>2018</td><td><span class="st low" aria-label="2 of 5 stars">★★☆☆☆</span></td><td>16.0</td><td>1</td><td>fuel/propulsion system, fuel system, gasoline</td><td class="n">1</td><td><a href="https://autojunket.com/vehicles/2018-acura-rdx" target=_blank rel=noopener>↗</a></td></tr></tbody>
+        </table></div>
+        <p class="best">Best deal listed now: <a href="https://www.cars.com/vehicledetail/b8220e2a-6def-478f-9d0b-b57fecb42254/" target="_blank" rel="noopener">2017 RDX Base · $9,399 · 139k mi · Houston, TX</a></p>
+      </div>
+    </section>
+
+  <div class="notes">
+    <p><b>Reliability:</b> stars come from NHTSA owner complaints per 10,000 vehicles sold for each model year, ranked against every model year in the search (airbag complaints excluded). Greyed rows are years with no current listings. Sales figures are approximate, so treat stars as a guide. The ↗ links open Autojunket's report for that year; its scores are its own estimates.</p>
+    <p><b>Not included:</b> 4Runner (only two "matches", a 2023 and a 2026 at under $10k, which are almost certainly bait listings), Element, and GX 460 (no current matches).</p>
+    <p>Specs are for the common U.S. versions and vary slightly by trim. Verify any specific car with a pre-purchase inspection and a VIN recall check at nhtsa.gov/recalls.</p>
+  </div>
+</div>
+</body>
+</html>
