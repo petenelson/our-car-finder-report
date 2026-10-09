@@ -345,21 +345,16 @@ pct_under = 1 - price / expected
 <!-- 10 -->
 <section class="slide">
   <p class="kicker">Notifications</p>
-  <h2>Push alerts through ntfy</h2>
+  <h2>Push alerts through ntfy <span style="font:500 20px/1 var(--body);color:var(--muted);letter-spacing:0">· real alerts on my phone, Oct 8</span></h2>
   <div class="row grow">
-    <div style="width:430px;flex:none">
-      <div class="shade">
-        <div class="notif"><div><div class="app">ntfy · 🔥 · priority max</div><b>Great deal: 2016 Honda Odyssey</b>$7,500 · 98k mi · 7 mi away · cargo 148 cu ft · reliability ★★☆☆☆<br>Great deal: $4,460 under similar private sales ($11,960)<div class="act">OPEN REPORT</div></div><img class="thumb" src="img/notif-odyssey.jpg" alt=""></div>
-        <div class="notif"><div><div class="app">ntfy · 📉</div><b>Price drop: 2016 Honda Odyssey EX-L</b>$9,499 → $8,999 · 111k mi · Houston, TX (165 mi away)<div class="act">OPEN REPORT</div></div><div></div></div>
-        <div class="notif"><div><div class="app">ntfy · 🚗</div><b>12 more new listings</b>2012 Toyota Sienna LE · $9,995 · Tomball, TX<br>2013 Toyota RAV4 · $10,200 · Flower Mound…</div><div></div></div>
-      </div>
-      <p style="font-size:12.5px;color:var(--muted);margin-top:8px">Recreated from <code>notify.py</code>'s output format with real listing data.</p>
+    <div style="width:330px;flex:none">
+      <div class="phone" style="width:240px;margin-left:30px"><img src="img/ntfy-phone.jpg" alt="ntfy alerts on Pete's phone: new matches with photos, a great deal and a summary"></div>
     </div>
     <div class="col">
       <ul class="clean">
         <li><b>Why ntfy:</b> free, no account, one HTTP POST per alert. Claude had recommended email. I chose ntfy, and it adapted.</li>
         <li>Priority maps to urgency: great deal = max, match = high, near miss = default.</li>
-        <li>Tapping opens the listing; the <b>Open report</b> action opens the page.</li>
+        <li>Tapping (or <b>Open</b>) goes to the listing; <b>Open report</b> opens the page.</li>
         <li>Photo attached, plus price, miles, distance, cargo, stars and why it's a deal.</li>
         <li>Price drops of $300 or more, site-failure warnings, max 8 pushes per run.</li>
         <li>Claude also walked me through subscribing in the app, including Android battery settings.</li>
