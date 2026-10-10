@@ -132,6 +132,21 @@ ul.clean.o li::before { background: var(--orange); }
 #hud button { background: rgba(255,255,255,.08); color: #cfdcd4; border: 1px solid rgba(255,255,255,.15); border-radius: 6px; padding: 6px 10px; font: inherit; cursor: pointer; }
 #hud button:hover { background: rgba(255,255,255,.16); }
 #progress { position: fixed; left: 0; top: 0; height: 3px; background: #f08a5d; z-index: 11; transition: width .2s; }
+
+/* Setup diagram */
+.setup { display: grid; grid-template-columns: 250px 46px 1fr 46px 250px; align-items: center; gap: 0; }
+.setup .stack { display: grid; gap: 12px; }
+.dev { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 11px 14px; font-size: 14.5px; line-height: 1.35; }
+.dev b { display: block; font: 700 19px/1.15 var(--head); margin-bottom: 2px; }
+.dev small { color: var(--muted); font-size: 13px; }
+.link { display: grid; place-items: center; color: var(--muted); font-size: 24px; }
+.server { background: var(--code); color: #e6efe9; border-radius: 14px; padding: 16px 18px; }
+.server h4 { margin: 0 0 2px; font: 700 24px/1.1 var(--head); color: #fff; }
+.server .sub { font-size: 13px; color: #9fb4a8; margin-bottom: 12px; }
+.tmux { border: 1px solid #3c5a4b; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; }
+.tmux .bar { font: 600 11px/1 var(--mono); color: #8fd1ae; letter-spacing: .04em; margin-bottom: 6px; }
+.tmux .cc { font: 700 18px/1.2 var(--head); color: #f0a27f; }
+.server ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.5; color: #cfdcd4; }
 aside.notes { display: none; }
 </style>
 </head>
@@ -153,6 +168,37 @@ aside.notes { display: none; }
   </div>
   <div class="foot"><span>Pete Nelson</span></div>
   <aside class="notes">We needed a used minivan. Instead of refreshing five car sites twice a day, I asked Claude Code to build something that does it for me. This talk is less about the tool and more about how the collaboration went: what Claude decided on its own, what it needed from me, and where it pushed back.</aside>
+</section>
+
+<!-- setup -->
+<section class="slide">
+  <p class="kicker">How I work with Claude</p>
+  <h2>One long-running session on a box at home</h2>
+  <div class="setup">
+    <div class="stack">
+      <div class="dev"><b>Phone</b>Claude app via Remote Control. Voice dictation, screenshots of the report and alerts, answering Claude's questions.</div>
+      <div class="dev"><b>Claude desktop</b>Remote Control into the same session from the laptop.</div>
+      <div class="dev"><b>Terminal</b><code>ssh</code> in and <code>tmux attach</code> for the raw CLI, e.g. <code>! gh auth login</code>.</div>
+    </div>
+    <div class="link">⇄</div>
+    <div class="server">
+      <h4>Ubuntu box on my home network</h4>
+      <div class="sub">Always on · residential IP (which helps with bot checks)</div>
+      <div class="tmux"><div class="bar">tmux</div><div class="cc">Claude Code</div><span style="font-size:13.5px;color:#cfdcd4">One conversation, Oct 1 → today. It survives disconnects and gets compacted when context fills up.</span></div>
+      <ul>
+        <li><code>~/minivan-finder</code>: code, SQLite, logs</li>
+        <li><code>cron</code>: scrape at 7 AM and 4 PM Central</li>
+      </ul>
+    </div>
+    <div class="link">→</div>
+    <div class="stack">
+      <div class="dev"><b>GitHub</b>Private code repo · public Pages repo for the report, slides and guide</div>
+      <div class="dev"><b>ntfy</b>Car alerts → my wife<br>Ops alerts and run summaries → me</div>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:22px;font-size:19px">I can start something at my desk, then check on it or answer Claude's question from my phone later. The work keeps running on the box the whole time.</p>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">Claude Code runs in tmux on an Ubuntu box on my LAN, so the session never dies when I close a laptop. Remote Control lets me drive that same session from the Claude desktop app or my phone. From the phone I dictate prompts (dictation once turned "autojunket" into nonsense, and Claude asked instead of guessing), plus screenshots of the report and the ntfy alerts. When something needs a real terminal, like the GitHub login, I SSH in and attach to tmux. Because the box is on my home internet connection, the scrapers come from a residential IP, which matters for bot checks.</aside>
 </section>
 
 <!-- 2 -->
@@ -207,7 +253,7 @@ aside.notes { display: none; }
     <li><time>Oct 2 12:22p</time><span>"Add Lexus and Acura"</span></li>
     <li><time>Oct 3 11:22a</time><span>"Does this scrape Edmunds?"</span></li>
   </ul>
-  <p class="lead" style="margin-top:16px;font-size:19px">Several of these were typed <i>while Claude was still working</i>. Claude Code queues them and folds them into the running task. More rounds of asks followed a week later (slides 12–13).</p>
+  <p class="lead" style="margin-top:16px;font-size:19px">Several of these were typed <i>while Claude was still working</i>. Claude Code queues them and folds them into the running task. More rounds of asks followed a week later (slides 13–14).</p>
   <div class="foot"><span>Building a used-car finder with Claude</span></div>
   <aside class="notes">Most of the real product came from short follow-ups, not the first prompt. I never stopped to write requirements. I reacted to what I saw, the same way you'd work with a teammate sitting next to you. Everything after ~10 PM on day one was polish.</aside>
 </section>
