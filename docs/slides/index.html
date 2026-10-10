@@ -413,7 +413,7 @@ pct_under = 1 - price / expected
       <ul class="clean o big">
         <li><b>The claude.ai artifact plan didn't fit:</b> a 255-file limit, external images blocked, and a daily <code>claude -p</code> run. It was swapped for <code>git push</code> to Pages.</li>
         <li><b>A crash on the seed run:</b> a flag was read before it was defined. The FB cache meant the rerun took 12 min, not 35.</li>
-        <li><b>Still open:</b> the bot walls move. Autotrader has blocked most runs since Oct 4, Cars.com has sent occasional 403s, and FB detail pages once slowed to 45 s each. The failure alert caught all of them.</li>
+        <li><b>The bot walls move.</b> Autotrader blocked the stealth browser for most runs Oct 4–8, yet plain requests got through. It now tries Autotrader, then KBB.com (same company, same data). Cars.com listing pages needed the search page as Referer. The failure alert caught every outage.</li>
       </ul>
     </div>
   </div>
