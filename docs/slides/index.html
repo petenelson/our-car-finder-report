@@ -82,7 +82,7 @@ td.dim { color: #9aa59f; }
 .box small { color: var(--muted); font-size: 13.5px; display: block; }
 .arrow { width: 34px; display: grid; place-items: center; color: var(--muted); font-size: 22px; flex: none; }
 .loc { font-size: 14px; }
-.loc td { padding: 6px 10px; }
+.loc td { padding: 4px 10px; } .loc th { padding-bottom: 6px; }
 
 /* Cards grid */
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -146,8 +146,8 @@ aside.notes { display: none; }
   <p class="lead">One evening of prompts turned into a scraper for 5 car sites, a deal-scoring model, phone alerts and a mobile report that rebuilds twice a day.</p>
   <div class="stats">
     <div class="stat"><b>77 min</b><span>first prompt to first live report</span></div>
-    <div class="stat"><b>23</b><span>prompts, total</span></div>
-    <div class="stat"><b>~1,900</b><span>lines of Python + HTML</span></div>
+    <div class="stat"><b>35</b><span>prompts over 10 days</span></div>
+    <div class="stat"><b>~2,400</b><span>lines of Python + HTML</span></div>
     <div class="stat"><b>0</b><span>lines typed by me</span></div>
     <div class="stat"><b>~2,300</b><span>listings scanned per run</span></div>
   </div>
@@ -207,7 +207,7 @@ aside.notes { display: none; }
     <li><time>Oct 2 12:22p</time><span>"Add Lexus and Acura"</span></li>
     <li><time>Oct 3 11:22a</time><span>"Does this scrape Edmunds?"</span></li>
   </ul>
-  <p class="lead" style="margin-top:16px;font-size:19px">Several of these were typed <i>while Claude was still working</i>. Claude Code queues them and folds them into the running task.</p>
+  <p class="lead" style="margin-top:16px;font-size:19px">Several of these were typed <i>while Claude was still working</i>. Claude Code queues them and folds them into the running task. A second round of asks came a week later (slide 12).</p>
   <div class="foot"><span>Building a used-car finder with Claude</span></div>
   <aside class="notes">Most of the real product came from short follow-ups, not the first prompt. I never stopped to write requirements. I reacted to what I saw, the same way you'd work with a teammate sitting next to you. Everything after ~10 PM on day one was polish.</aside>
 </section>
@@ -231,12 +231,13 @@ aside.notes { display: none; }
     <div class="col">
       <table class="loc">
         <tr><th>File</th><th>Lines</th><th>Job</th></tr>
-        <tr><td><code>run.py</code></td><td>399</td><td>pipeline, filters, merge, price drops</td></tr>
-        <tr><td><code>finder/sources.py</code></td><td>372</td><td>the 5 scrapers</td></tr>
-        <tr><td><code>finder/report_template.html</code></td><td>464</td><td>report UI (vanilla JS, no framework)</td></tr>
+        <tr><td><code>run.py</code></td><td>420</td><td>pipeline, filters, merge, price drops</td></tr>
+        <tr><td><code>finder/sources.py</code></td><td>373</td><td>the 5 scrapers</td></tr>
+        <tr><td><code>finder/report_template.html</code></td><td>470</td><td>report UI (vanilla JS, no framework)</td></tr>
         <tr><td><code>finder/deals.py</code></td><td>130</td><td>per-model price regression</td></tr>
-        <tr><td><code>finder/reliability.py</code></td><td>120</td><td>NHTSA complaints → stars</td></tr>
-        <tr><td><code>notify / geo / models / report / publish</code></td><td>426</td><td>the rest</td></tr>
+        <tr><td><code>finder/reliability.py</code></td><td>122</td><td>NHTSA complaints → stars</td></tr>
+        <tr><td><code>scripts/generations.py</code></td><td>394</td><td>generations guide page</td></tr>
+        <tr><td><code>notify / geo / models / report / publish</code></td><td>451</td><td>the rest</td></tr>
       </table>
     </div>
     <div class="col" style="flex:.8">
@@ -333,11 +334,11 @@ pct_under = 1 - price / expected
   <p class="kicker">The result</p>
   <h2>The report</h2>
   <div class="row grow" style="align-items:flex-start">
-    <div style="flex:1.85"><img class="shot" src="img/d-deals.jpg" alt="Desktop view of the report on the Deals tab" style="width:100%"></div>
-    <div class="phone" style="width:190px;flex:none;height:440px"><img src="img/m-deals.jpg" alt="Phone view of the report"></div>
-    <div class="phone" style="width:190px;flex:none;height:440px"><img src="img/m-card.jpg" alt="One listing card with cargo and reliability"></div>
+    <div style="flex:1.85"><img class="shot" src="img/d-deals.jpg" alt="Desktop view of the report on the Deals tab" style="width:100%;height:398px;object-fit:cover;object-position:top"></div>
+    <div class="phone" style="width:172px;flex:none;height:398px"><img src="img/m-deals.jpg" alt="Phone view of the report"></div>
+    <div class="phone" style="width:172px;flex:none;height:398px"><img src="img/m-card.jpg" alt="One listing card with owners, cargo, reliability and an Autojunket link"></div>
   </div>
-  <p class="lead" style="font-size:18px;margin-top:-14px">Views: Deals · Matches · Near misses · Saved · Gone. Filters: model, price, mileage, distance, seller type, rows, reliability, site, search. Live at <b>petenelson.github.io/our-car-finder-report</b></p>
+  <p class="lead" style="font-size:17px;margin-top:14px;max-width:none">5 views · 10 filters, including owners and reliability · an Autojunket link on each card · live at <b>petenelson.github.io/our-car-finder-report</b></p>
   <div class="foot"><span>Building a used-car finder with Claude</span></div>
   <aside class="notes">Pull up the live page here if there's time. Defaults are Deals tab + Best deal sort, which I asked for. The card layout, cargo bar, reliability details and known-issues notes were Claude's design. The notes are things like "A/C compressor failures are common on 2012–16 CR-Vs".</aside>
 </section>
@@ -372,11 +373,28 @@ pct_under = 1 - price / expected
   <div class="pb"><div class="ask">"This is what it looks like on phone, too small to read. Feel free to use Tailwind."</div><div class="ans">"The cause is a missing tag, not small fonts… Tailwind isn't needed." One <code>&lt;meta viewport&gt;</code> line fixed it.</div></div>
   <div class="pb"><div class="ask">"Install playwright if you need to."</div><div class="ans">Didn't. The stealth-browser package it already had shipped a Chromium that could emulate a Pixel 7.</div></div>
   <div class="pb"><div class="ask">"Any reason not to set a lower bottom price?"</div><div class="ans">It pulled the data first: "The $6–7k cars are newer and lower-mileage than the $7–8k ones, which is backwards… usually lowball bait." Recommended <b>$6k, not lower</b>.</div></div>
-  <div class="pb"><div class="ask">"Clicking on a notification shows a 404. Does it need the new URL?"</div><div class="ans">"No change was needed." Only the two alerts sent before the move had the old link, and sent notifications can't be edited.</div></div>
+  <div class="pb"><div class="ask">"Can you use autojunket to get reliability reports?"</div><div class="ans">Read their robots.txt, terms and methodology first. The terms say "you may not… scrape the Service", and the scores are generated estimates, so it <b>linked to each report instead</b> of copying scores.</div></div>
   <div class="pb"><div class="ask">"Can I make the repo private and still publish the report page?"</div><div class="ans">Explained that Pages stays public even on Pro, and laid out 3 options (two repos / Pro / Cloudflare Access) with costs.</div></div>
   <div class="pb" style="margin-bottom:0"><div class="ask">"Does this scrape Edmunds?"</div><div class="ans">"It would mostly add duplicates." It offered to probe Edmunds anyway as a backup source. I said no.</div></div>
   <div class="foot"><span>Building a used-car finder with Claude</span></div>
   <aside class="notes">This is the part I didn't expect. When I suggested a solution (Tailwind, Playwright, a lower floor), Claude diagnosed the actual problem first and told me when my suggestion wasn't needed. It also answered with data, not opinion. The price-floor answer came with a table of listings by price band.</aside>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <p class="kicker">A week later</p>
+  <h2>Round two: four more asks, same pattern</h2>
+  <div class="row grow" style="gap:22px">
+    <div class="col" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:start">
+      <div class="card"><h4>"Use Autojunket for reliability"</h4><p>My dictation garbled the name, so Claude searched, found nothing, and <b>asked</b> instead of guessing. Once I sent the URL, it checked the terms and added a link on 438 cards.</p></div>
+      <div class="card"><h4>"Summarize the generations"</h4><p>A guide for 11 models and 16 generations: specs, updates, a per-year NHTSA table and current listings. It <b>flagged that the spec notes came from its own knowledge</b> and suggested I proofread them.</p></div>
+      <div class="card"><h4>"Is this Prius covered?"</h4><p>It decoded the VIN with NHTSA's API: a regular Prius, not the Prius v. It explained <b>why it had been left out</b> (40 vs 67 cu ft of cargo) before adding it. "Rebuild it tomorrow" became a one-shot cron job that waits for the scrape, publishes, sends a push, then deletes itself.</p></div>
+      <div class="card"><h4>"Track the number of owners"</h4><p>It probed every site. Facebook has a seller-entered field and CarMax has a one-owner badge. Cars.com's filter <b>couldn't be verified, so it was left out</b> rather than shown with unverified numbers.</p></div>
+    </div>
+    <div style="width:330px;flex:none"><img class="shot" src="img/d-gen.jpg" alt="The generations guide page" style="width:100%"><p style="font-size:13px;color:var(--muted);margin-top:8px">The generations guide, built in one prompt</p></div>
+  </div>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">Same behaviors as week one: verify before building, say what it can't confirm, and explain tradeoffs before acting. The owners feature is a good example of honesty: only about 1 in 6 listings state an owner count, and it said so instead of padding the numbers.</aside>
 </section>
 
 <!-- 12 -->
