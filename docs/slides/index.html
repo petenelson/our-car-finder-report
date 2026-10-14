@@ -129,6 +129,8 @@ ul.clean.o li::before { background: var(--orange); }
 #notes h5 { margin: 0 0 4px; font: 600 12px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: #8fd1ae; }
 #hud { opacity: .35; transition: opacity .2s; position: fixed; right: 14px; bottom: 10px; z-index: 11; font: 12px/1 var(--body); color: #8a9a91; display: flex; gap: 10px; align-items: center; }
 #hud:hover { opacity: 1; }
+.presenting #hud { opacity: 0; }
+.presenting #hud:hover { opacity: 1; }
 #hud button { background: rgba(255,255,255,.08); color: #cfdcd4; border: 1px solid rgba(255,255,255,.15); border-radius: 6px; padding: 6px 10px; font: inherit; cursor: pointer; }
 #hud button:hover { background: rgba(255,255,255,.16); }
 #progress { position: fixed; left: 0; top: 0; height: 3px; background: #f08a5d; z-index: 11; transition: width .2s; }
@@ -184,7 +186,7 @@ aside.notes { display: none; }
 <div id="stage"><div id="deck">
 
 <!-- 1 -->
-<section class="slide title-slide">
+<section class="slide title-slide" data-voice="title">
   <p class="kicker">Show &amp; tell · Claude Code</p>
   <h1>Building a used-car finder<br><span>by talking to Claude</span></h1>
   <p class="lead">One evening of prompts turned into a scraper for 5 car sites, a deal-scoring model, phone alerts and a mobile report that rebuilds twice a day.</p>
@@ -200,7 +202,7 @@ aside.notes { display: none; }
 </section>
 
 <!-- 2 -->
-<section class="slide">
+<section class="slide" data-voice="prompt">
   <p class="kicker">The starting point</p>
   <h2>The whole first prompt</h2>
   <div class="prompt">
@@ -213,7 +215,7 @@ aside.notes { display: none; }
 </section>
 
 <!-- 3 -->
-<section class="slide">
+<section class="slide" data-voice="questions">
   <p class="kicker">What Claude needed from me, part 1</p>
   <h2>It asked four questions, each with a recommendation</h2>
   <table>
@@ -229,7 +231,7 @@ aside.notes { display: none; }
 </section>
 
 <!-- 4 -->
-<section class="slide">
+<section class="slide" data-voice="scope">
   <p class="kicker">How the session actually went</p>
   <img class="sticker" src="https://media.giphy.com/media/5rFCeKx6KhFZT6KfXi/giphy.gif" alt="Michael Scott from The Office, pursing his lips" style="width:155px;top:20px;transform:rotate(-3deg)">
   <h2>Scope grew mid-flight, and that was fine</h2>
@@ -258,7 +260,7 @@ aside.notes { display: none; }
 </section>
 
 <!-- 5 -->
-<section class="slide">
+<section class="slide" data-voice="how">
   <p class="kicker">How it works</p>
   <h2>One Python pipeline, run by cron</h2>
   <div class="flow">
@@ -299,7 +301,7 @@ aside.notes { display: none; }
 </section>
 
 <!-- 6 -->
-<section class="slide">
+<section class="slide" data-voice="sites">
   <p class="kicker">How Claude chose which sites to scrape</p>
   <img class="sticker" src="https://media.giphy.com/media/S6sZaHdqsGYFO/giphy.gif" alt="Gandalf: You shall not pass!" style="width:175px;transform:rotate(-3deg)">
   <h2>It probed every site, escalating until it got through</h2>
@@ -322,7 +324,7 @@ aside.notes { display: none; }
 </section>
 
 <!-- 7 -->
-<section class="slide">
+<section class="slide" data-voice="decisions">
   <p class="kicker">Decisions Claude made on its own</p>
   <h2>Things I never asked for</h2>
   <div class="cards">
@@ -341,7 +343,7 @@ aside.notes { display: none; }
 </section>
 
 <!-- 8 -->
-<section class="slide">
+<section class="slide" data-voice="selfcorrect">
   <p class="kicker">Self-correction</p>
   <img class="sticker" src="https://media.giphy.com/media/26xBI73gWquCBBCDe/giphy.gif" alt="Winona Ryder looking confused while math equations float by" style="width:165px;transform:rotate(3deg)">
   <h2>"117 of 249 cars are great deals." That can't be right.</h2>
@@ -377,7 +379,7 @@ pct_under = 1 - price / expected
 </section>
 
 <!-- 9 -->
-<section class="slide">
+<section class="slide" data-voice="report">
   <p class="kicker">The result</p>
   <h2>The report</h2>
   <div class="row grow" style="align-items:flex-start">
@@ -391,7 +393,7 @@ pct_under = 1 - price / expected
 </section>
 
 <!-- 10 -->
-<section class="slide">
+<section class="slide" data-voice="notify">
   <p class="kicker">Notifications</p>
   <h2>Push alerts through ntfy <span style="font:500 20px/1 var(--body);color:var(--muted);letter-spacing:0">· real alerts on my phone</span></h2>
   <div class="row grow">
@@ -415,7 +417,7 @@ pct_under = 1 - price / expected
 </section>
 
 <!-- 11 -->
-<section class="slide">
+<section class="slide" data-voice="pushback">
   <p class="kicker">Pushback</p>
   <img class="sticker" src="https://media.giphy.com/media/k6r6lTYIL9j9ZeRT51/giphy.gif" alt="Michael Scott from The Office, unimpressed" style="width:155px;top:20px;transform:rotate(3deg)">
   <h2>When Claude said "you don't need that"</h2>
@@ -430,7 +432,7 @@ pct_under = 1 - price / expected
 </section>
 
 <!-- 12 -->
-<section class="slide">
+<section class="slide" data-voice="round2">
   <p class="kicker">A week later</p>
   <h2>Round two: four more asks, same pattern</h2>
   <div class="row grow" style="gap:22px">
@@ -447,7 +449,7 @@ pct_under = 1 - price / expected
 </section>
 
 <!-- 13 -->
-<section class="slide">
+<section class="slide" data-voice="round3">
   <p class="kicker">Round three</p>
   <h2>Data quality and devops</h2>
   <div class="cards" style="grid-template-columns:1fr 1fr 290px">
@@ -462,7 +464,7 @@ pct_under = 1 - price / expected
 </section>
 
 <!-- ask -->
-<section class="slide">
+<section class="slide" data-voice="ask">
   <p class="kicker">Round four</p>
   <h2>Letting my wife ask Claude directly</h2>
   <div class="row grow" style="gap:22px">
@@ -494,7 +496,7 @@ pct_under = 1 - price / expected
 </section>
 
 <!-- 12 -->
-<section class="slide">
+<section class="slide" data-voice="lessons">
   <p class="kicker">Lessons</p>
   <img class="sticker" src="https://media.giphy.com/media/2UCt7zbmsLoCXybx6t/giphy.gif" alt="This is fine: a dog sips coffee in a burning room" style="width:215px;top:22px;transform:rotate(-2deg)">
   <h2>What went wrong, and how it got caught</h2>
@@ -519,7 +521,7 @@ pct_under = 1 - price / expected
 </section>
 
 <!-- setup -->
-<section class="slide">
+<section class="slide" data-voice="setup">
   <p class="kicker">How I work with Claude</p>
   <h2>One long-running session on a box at home</h2>
   <div class="setup">
@@ -551,7 +553,7 @@ pct_under = 1 - price / expected
 </section>
 
 <!-- payoff -->
-<section class="slide">
+<section class="slide" data-voice="payoff">
   <p class="kicker">The payoff</p>
   <img class="sticker" src="https://media.giphy.com/media/yAYZnhvY3fflS/giphy.gif" alt="Fry from Futurama: Shut up and take my money!" style="width:215px;top:22px;transform:rotate(3deg)">
   <h2>We found our car: a 2014 Honda CR-V</h2>
@@ -576,7 +578,7 @@ pct_under = 1 - price / expected
 </section>
 
 <!-- 13 -->
-<section class="slide dark">
+<section class="slide dark" data-voice="takeaways">
   <p class="kicker">Takeaways</p>
   <h2>What Claude needed from me, and what it didn't</h2>
   <div class="row grow">
@@ -604,7 +606,7 @@ pct_under = 1 - price / expected
 </section>
 
 <!-- meta -->
-<section class="slide">
+<section class="slide" data-voice="meta">
   <p class="kicker">One more thing</p>
   <h2>Claude wrote this slide deck too</h2>
   <div class="row grow" style="gap:26px">
@@ -628,7 +630,7 @@ pct_under = 1 - price / expected
 </section>
 
 <!-- questions -->
-<section class="slide dark qslide">
+<section class="slide dark qslide" data-voice="questions_end">
   <h1>Any questions?</h1>
   <img class="gif" src="https://media.giphy.com/media/3oriO5EMLxl1f7funu/giphy.gif" alt="David S. Pumpkins (Tom Hanks) leans in and asks: Any questions?">
   <div class="credit">David S. Pumpkins · Saturday Night Live, 2016 · via GIPHY</div>
@@ -640,7 +642,7 @@ pct_under = 1 - price / expected
 </div></div>
 
 <div id="notes"><h5>Speaker notes</h5><div id="notes-body"></div></div>
-<div id="hud"><span id="count"></span><button id="prev" aria-label="Previous slide">←</button><button id="next" aria-label="Next slide">→</button><button id="ntog">Notes</button><button id="fs">Fullscreen</button></div>
+<div id="hud"><span id="count"></span><button id="prev" aria-label="Previous slide">←</button><button id="next" aria-label="Next slide">→</button><button id="ntog">Notes</button><button id="fs">Fullscreen</button><button id="present" title="Narrated presentation (P)">▶ Present</button></div>
 
 <script>
 (function () {
@@ -661,12 +663,44 @@ pct_under = 1 - price / expected
     const a = slides[i].querySelector("aside.notes");
     document.getElementById("notes-body").textContent = a ? a.textContent : "";
     history.replaceState(null, "", `#${i + 1}`);
+    narrate();
+  }
+
+  // Narrated presenter mode: P (or the button) plays each slide's audio and advances when it ends.
+  const audio = new Audio();
+  const pbtn = document.getElementById("present");
+  let presenting = false, timer = null;
+  function narrate() {
+    clearTimeout(timer);
+    if (!presenting) return;
+    audio.src = `audio/${slides[i].dataset.voice}.mp3`;
+    audio.play().catch(() => {});
+    label();
+  }
+  function label() {
+    pbtn.textContent = !presenting ? "▶ Present" : audio.paused ? "▶ Resume" : "❚❚ Pause";
+    document.body.classList.toggle("presenting", presenting);
+  }
+  audio.onended = () => {
+    if (!presenting) return;
+    if (i < slides.length - 1) timer = setTimeout(() => show(i + 1), 900);
+    else stopPresenting();
+  };
+  audio.onplay = audio.onpause = label;
+  function stopPresenting() { presenting = false; clearTimeout(timer); audio.pause(); label(); }
+  function togglePresent() {
+    if (!presenting) { presenting = true; narrate(); }
+    else if (audio.paused) audio.play();
+    else audio.pause();
   }
   const toggleNotes = () => notes.classList.toggle("on");
   const fullscreen = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()).catch(() => {});
 
   addEventListener("keydown", (e) => {
-    if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    if (presenting && e.key === " ") { e.preventDefault(); togglePresent(); }
+    else if (e.key === "p" || e.key === "P") togglePresent();
+    else if (e.key === "Escape" && presenting) stopPresenting();
+    else if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) { e.preventDefault(); show(i + 1); }
     else if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); show(i - 1); }
     else if (e.key === "Home") show(0);
     else if (e.key === "End") show(slides.length - 1);
@@ -677,6 +711,7 @@ pct_under = 1 - price / expected
   document.getElementById("next").onclick = () => show(i + 1);
   document.getElementById("ntog").onclick = toggleNotes;
   document.getElementById("fs").onclick = fullscreen;
+  pbtn.onclick = togglePresent;
 
   let x0 = null;
   addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
