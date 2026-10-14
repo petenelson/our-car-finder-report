@@ -144,6 +144,12 @@ ul.clean.o li::before { background: var(--orange); }
 .qa .app { font-size: 11.5px; color: var(--muted); margin-bottom: 3px; }
 .qa b { display: block; font-size: 15px; margin-bottom: 2px; }
 
+/* Payoff */
+.pstats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px; }
+.pstats .stat { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.pstats .stat b { color: var(--green); font-size: 36px; }
+.pstats .stat span { color: var(--muted); font-size: 13.5px; line-height: 1.3; display: block; margin-top: 4px; }
+
 /* Meta + questions */
 .prompt.sm { font-size: 15.5px; line-height: 1.42; padding: 14px 18px; margin-bottom: 12px; }
 .prompt.sm .who { font-size: 11px; margin-bottom: 7px; }
@@ -534,6 +540,30 @@ pct_under = 1 - price / expected
   <p class="lead" style="margin-top:22px;font-size:19px">I can start something at my desk, then check on it or answer Claude's question from my phone later. The work keeps running on the box the whole time.</p>
   <div class="foot"><span>Building a used-car finder with Claude</span></div>
   <aside class="notes">Claude Code runs in tmux on an Ubuntu box on my LAN, so the session never dies when I close a laptop. Remote Control lets me drive that same session from the Claude desktop app or my phone. From the phone I dictate prompts (dictation once turned "autojunket" into nonsense, and Claude asked instead of guessing), plus screenshots of the report and the ntfy alerts. When something needs a real terminal, like the GitHub login, I SSH in and attach to tmux. Because the box is on my home internet connection, the scrapers come from a residential IP, which matters for bot checks.</aside>
+</section>
+
+<!-- payoff -->
+<section class="slide">
+  <p class="kicker">The payoff</p>
+  <h2>We found our car: a 2014 Honda CR-V</h2>
+  <div class="row grow" style="gap:26px">
+    <figure style="margin:0;width:300px;flex:none"><img class="shot" src="img/crv.jpg" alt="Front of a maroon 2014 Honda CR-V in a parking lot" style="width:100%;border-radius:14px"><figcaption style="font-size:13px;color:var(--muted);margin-top:6px;text-align:center">Photo from the Craigslist listing (plate blurred)</figcaption></figure>
+    <div class="col" style="flex:1">
+      <div class="pstats">
+        <div class="stat"><b>$8,995</b><span>about $2,080 under similar private sales</span></div>
+        <div class="stat"><b>82,500</b><span>miles; only 3 of 30 CR-V matches had fewer</span></div>
+        <div class="stat"><b>11 min</b><span>away in Cedar Park, 7 miles from McNeil</span></div>
+        <div class="stat"><b>840</b><span>listings tracked over two weeks to find it</span></div>
+      </div>
+      <ul class="clean">
+        <li style="font-size:17px">Private seller, clean title, recent oil change. The finder picked it up in the <b>Oct 12, 4 PM run</b>, and we plan to buy it this week. <a href="https://www.craigslist.org/view/d/cedar-park-honda-cr-for-sale/6gs856DYG7apTfEkoefdk2" style="color:var(--green)">The listing</a></li>
+        <li style="font-size:17px"><b>It almost got missed.</b> The title was just "Honda CR-V for sale", so the finder had no year and showed no deal badge or reliability stars. The year was on the listing page all along. Claude now fetches the page when the title has no year; with it, the car scores as a <b>good deal</b>.</li>
+        <li style="font-size:17px">What to check before buying: the A/C compressor, the known weak spot for this generation.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">The whole point was to find a car, and two weeks in, we did: a 2014 CR-V eleven minutes from home. Fitting for this talk, adding it to the slides exposed one more bug. The search results had no year for this car, so it showed up without a deal rating. Claude found the year on the listing page and fixed the scraper the same day. Lesson: the listings you most care about can be the ones with the messiest data.</aside>
 </section>
 
 <!-- 13 -->
