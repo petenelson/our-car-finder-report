@@ -144,6 +144,15 @@ ul.clean.o li::before { background: var(--orange); }
 .qa .app { font-size: 11.5px; color: var(--muted); margin-bottom: 3px; }
 .qa b { display: block; font-size: 15px; margin-bottom: 2px; }
 
+/* Meta + questions */
+.prompt.sm { font-size: 15.5px; line-height: 1.42; padding: 14px 18px; margin-bottom: 12px; }
+.prompt.sm .who { font-size: 11px; margin-bottom: 7px; }
+.qslide { justify-content: center; align-items: center; text-align: center; }
+.qslide h1 { font-size: 92px; margin: 0 0 22px; }
+.qslide .gif { width: 600px; border-radius: 14px; box-shadow: 0 10px 40px rgba(0,0,0,.45); display: block; }
+.qslide .credit { font-size: 13px; color: #8a9a91; margin-top: 10px; }
+.qslide .links { font-size: 19px; color: #b9c9bf; margin-top: 16px; }
+
 /* Setup diagram */
 .setup { display: grid; grid-template-columns: 250px 46px 1fr 46px 250px; align-items: center; gap: 0; }
 .setup .stack { display: grid; gap: 12px; }
@@ -551,9 +560,43 @@ pct_under = 1 - price / expected
       </ul>
     </div>
   </div>
-  <div class="foot"><span>Questions?</span><span>petenelson.github.io/our-car-finder-report</span></div>
+  <div class="foot"><span>Building a used-car finder with Claude</span><span>petenelson.github.io/our-car-finder-report</span></div>
   <aside class="notes">Wrap-up: I wrote zero lines of code but made every decision that mattered to us as buyers. Claude did the engineering, including the parts I'd normally skip: secrets hygiene, alert throttling and sanity-checking a model's output.</aside>
 </section>
+
+<!-- meta -->
+<section class="slide">
+  <p class="kicker">One more thing</p>
+  <h2>Claude wrote this slide deck too</h2>
+  <div class="row grow" style="gap:26px">
+    <div class="col" style="flex:1">
+      <div class="prompt sm"><div class="who">Pete → Claude Code, Oct 8</div>I'm doing a short presentation of this tool next week at work. Put together a presentation for me as either an artifact or publish to a Github page. We need to cover the basic functionality and how the code works, but this presentation is much more focused on how Claud was used to write the report vs what the report does. Include the initial prompt if you have it or can replicate it, how Claude decided which car sites to scrape, how it made decisions on it's own for the design and filtering functionality, what input you needed from me, pushback from Claud when I requested things that would not be useful. <mark>Ask me some more questions to fine-tune this presentation.</mark></div>
+      <div class="prompt sm" style="margin-bottom:0"><div class="who">Pete → Claude Code, Oct 14 (this slide)</div>Add a slide noting that Claude also wrote the slide deck for me, then a final slide with "Any questions?" and a GIF of David S. Pumpkins since it's October and Halloween is coming up. Include this prompt too.</div>
+    </div>
+    <div class="col" style="flex:1">
+      <ul class="clean">
+        <li style="font-size:17px">It asked <b>four questions</b> first: audience, length, format, and what to include.</li>
+        <li style="font-size:17px">The quotes, timeline and stats come from <b>our actual chat transcript</b>. It cut claims it couldn't back up from the chat.</li>
+        <li style="font-size:17px">It took the report screenshots itself, in an <b>emulated Pixel 7</b>.</li>
+        <li style="font-size:17px">One hand-written HTML file, no framework. After every edit it <b>rendered every slide and checked for overflow</b>, which caught a CSS class clash and emoji showing as empty boxes.</li>
+        <li style="font-size:17px">It <b>cropped my ops topic name</b> out of my phone screenshot and checked the deck for secret topic names before each push.</li>
+        <li style="font-size:17px">About 10 short prompts like the one on the left kept it up to date as the tool grew.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Building a used-car finder with Claude</span></div>
+  <aside class="notes">Same workflow as the tool itself: a loose request, a few questions back, then short follow-ups. The deck lives in the same public Pages repo as the report, so updating it is a git push. For the GIF, Claude searched Giphy and picked the clip where he literally says "Any questions?"</aside>
+</section>
+
+<!-- questions -->
+<section class="slide dark qslide">
+  <h1>Any questions?</h1>
+  <img class="gif" src="https://media.giphy.com/media/3oriO5EMLxl1f7funu/giphy.gif" alt="David S. Pumpkins (Tom Hanks) leans in and asks: Any questions?">
+  <div class="credit">David S. Pumpkins · Saturday Night Live, 2016 · via GIPHY</div>
+  <div class="links">Report: petenelson.github.io/our-car-finder-report &nbsp;·&nbsp; Slides: …/slides</div>
+  <aside class="notes">Happy almost-Halloween. Any questions?</aside>
+</section>
+
 
 </div></div>
 
