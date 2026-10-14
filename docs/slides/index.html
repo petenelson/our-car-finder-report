@@ -144,6 +144,9 @@ ul.clean.o li::before { background: var(--orange); }
 .qa .app { font-size: 11.5px; color: var(--muted); margin-bottom: 3px; }
 .qa b { display: block; font-size: 15px; margin-bottom: 2px; }
 
+/* Reaction GIFs */
+.sticker { position: absolute; top: 28px; right: 64px; border-radius: 10px; box-shadow: 0 6px 22px rgba(0,0,0,.28); transform: rotate(3deg); border: 4px solid #fff; z-index: 2; }
+
 /* Payoff */
 .pstats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px; }
 .pstats .stat { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
@@ -297,6 +300,7 @@ aside.notes { display: none; }
 <!-- 6 -->
 <section class="slide">
   <p class="kicker">How Claude chose which sites to scrape</p>
+  <img class="sticker" src="https://media.giphy.com/media/S6sZaHdqsGYFO/giphy.gif" alt="Gandalf: You shall not pass!" style="width:175px;transform:rotate(-3deg)">
   <h2>It probed every site, escalating until it got through</h2>
   <table style="font-size:16.5px">
     <tr><th style="width:30%">Attempt (all within ~5 minutes)</th><th>Cars.com</th><th>CarMax</th><th>Autotrader</th><th>CarGurus</th></tr>
@@ -338,6 +342,7 @@ aside.notes { display: none; }
 <!-- 8 -->
 <section class="slide">
   <p class="kicker">Self-correction</p>
+  <img class="sticker" src="https://media.giphy.com/media/WRQBXSCnEFJIuxktnw/giphy.gif" alt="Math lady, confused by equations" style="width:165px;transform:rotate(3deg)">
   <h2>"117 of 249 cars are great deals." That can't be right.</h2>
   <div class="row grow">
     <div class="col">
@@ -489,6 +494,7 @@ pct_under = 1 - price / expected
 <!-- 12 -->
 <section class="slide">
   <p class="kicker">Lessons</p>
+  <img class="sticker" src="https://media.giphy.com/media/2UCt7zbmsLoCXybx6t/giphy.gif" alt="This is fine: a dog sips coffee in a burning room" style="width:215px;top:22px;transform:rotate(-2deg)">
   <h2>What went wrong, and how it got caught</h2>
   <div class="row grow">
     <div class="col">
@@ -545,6 +551,7 @@ pct_under = 1 - price / expected
 <!-- payoff -->
 <section class="slide">
   <p class="kicker">The payoff</p>
+  <img class="sticker" src="https://media.giphy.com/media/yAYZnhvY3fflS/giphy.gif" alt="Fry from Futurama: Shut up and take my money!" style="width:215px;top:22px;transform:rotate(3deg)">
   <h2>We found our car: a 2014 Honda CR-V</h2>
   <div class="row grow" style="gap:26px">
     <figure style="margin:0;width:300px;flex:none"><img class="shot" src="img/crv.jpg" alt="Front of a maroon 2014 Honda CR-V in a parking lot" style="width:100%;border-radius:14px"><figcaption style="font-size:13px;color:var(--muted);margin-top:6px;text-align:center">Photo from the Craigslist listing (plate blurred)</figcaption></figure>
